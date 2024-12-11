@@ -13,6 +13,7 @@
 #include <memory>
 
 #include <App/Player/Player.h>
+#include <App/Camera/FllowCamera.h>
 
 
 class GameScene :public BaseScene
@@ -42,6 +43,8 @@ private:
     std::unique_ptr<ObjectModel> plane_ = nullptr;
 
     std::unique_ptr<Player> pPlayer_;
+    std::unique_ptr<FollowCamera> followCamera_ = nullptr;
+
 
 
 #ifdef _DEBUG

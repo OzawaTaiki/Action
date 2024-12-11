@@ -60,9 +60,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	input->Initilize(winApp);
 
 	SceneManager::RegisterScene("Game", GameScene::Create);
-    SceneManager::RegisterScene("ParticleTest", ParticleTestScene::Create);
+    //SceneManager::RegisterScene("ParticleTest", ParticleTestScene::Create);
 
-	SceneManager::GetInstance()->Initialize("ParticleTest");
+	SceneManager::GetInstance()->Initialize("Game");
 
 	Time::Initialize();
 
