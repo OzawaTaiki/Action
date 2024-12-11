@@ -17,6 +17,7 @@
 #include "Framework/eScene/SceneManager.h"
 #include "Framework/eScene/SampleScene.h"
 #include "Framework/eScene/ParticleTestScene.h"
+#include "App/GameScene.h"
 /*---------------*/
 
 
@@ -58,7 +59,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	Input* input = Input::GetInstance();
 	input->Initilize(winApp);
 
-	SceneManager::RegisterScene("Sample", SampleScene::Create);
+	SceneManager::RegisterScene("Game", GameScene::Create);
     SceneManager::RegisterScene("ParticleTest", ParticleTestScene::Create);
 
 	SceneManager::GetInstance()->Initialize("ParticleTest");
