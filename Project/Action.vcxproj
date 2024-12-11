@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\GameEngine\Engine\externals/assimp/include;$(ProjectDir)..\GameEngine\Engine\externals\DirectXTex;$(ProjectDir)..\GameEngine\Engine\externals\nlohmann;$(ProjectDir)..\GameEngine\Engine\externals\imgui;$(projectDir)..\GameEngine\Engine\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\GameEngine\Engine\externals/assimp/include;$(ProjectDir)..\GameEngine\Engine\externals\DirectXTex;$(ProjectDir)..\GameEngine\Engine\externals\nlohmann;$(ProjectDir)..\GameEngine\Engine\externals\imgui;$(projectDir)..\GameEngine\Engine\;$(projectDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -75,7 +75,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\GameEngine\Engine\externals/assimp/include;$(ProjectDir)..\GameEngine\Engine\externals\DirectXTex;$(ProjectDir)..\GameEngine\Engine\externals\nlohmann;$(ProjectDir)..\GameEngine\Engine\externals\imgui;$(projectDir)..\GameEngine\Engine\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\GameEngine\Engine\externals/assimp/include;$(ProjectDir)..\GameEngine\Engine\externals\DirectXTex;$(ProjectDir)..\GameEngine\Engine\externals\nlohmann;$(ProjectDir)..\GameEngine\Engine\externals\imgui;$(projectDir)..\GameEngine\Engine\;$(projectDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -88,7 +88,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="App\GameScene.cpp" />
+    <ClCompile Include="App\Player\Player.cpp" />
+    <ClCompile Include="App\Scene\GameScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -97,7 +98,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App\GameScene.h" />
+    <ClInclude Include="App\Player\Player.h" />
+    <ClInclude Include="App\Scene\GameScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

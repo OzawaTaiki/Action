@@ -4,7 +4,6 @@
 #include <UI/ImGuiManager/ImGuiManager.h>
 #include <Framework/eScene/SceneManager.h>
 
-
 std::unique_ptr<BaseScene>GameScene::Create()
 {
     return std::make_unique<GameScene>();
@@ -23,12 +22,21 @@ void GameScene::Initialize()
     debugCamera_.Initialize();
 
     plane_ = std::make_unique<ObjectModel>();
-    plane_->Initialize("Tile/Tile.gltf");
+    plane_->Initialize("Tile/Tile.gltf", "Ground");
     plane_->uvScale_ = { 100,100 };
 
     lineDrawer_ = LineDrawer::GetInstance();
     lineDrawer_->Initialize();
     lineDrawer_->SetCameraPtr(&SceneCamera_);
+
+#pragma region App
+
+    pPlayer_ = std::make_unique<Player>();
+    pPlayer_->Initialize();
+
+
+
+#pragma endregion
 }
 
 void GameScene::Update()
@@ -43,6 +51,8 @@ void GameScene::Update()
 #endif // _DEBUG
 
     plane_->Update();
+
+    pPlayer_->Update();
 
     if (enableDebugCamera_)
     {
@@ -64,6 +74,8 @@ void GameScene::Draw()
 {
     ModelManager::GetInstance()->PreDrawForObjectModel();
     plane_->Draw(&SceneCamera_, { 1,1,1,1 });
+
+    pPlayer_->Draw(&SceneCamera_);
 
 //-------------------------------------------------------------------------
     ModelManager::GetInstance()->PreDrawForAnimationModel();

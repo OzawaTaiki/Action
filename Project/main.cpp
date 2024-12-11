@@ -17,7 +17,7 @@
 #include "Framework/eScene/SceneManager.h"
 #include "Framework/eScene/SampleScene.h"
 #include "Framework/eScene/ParticleTestScene.h"
-#include "App/GameScene.h"
+#include "App/Scene/GameScene.h"
 /*---------------*/
 
 
