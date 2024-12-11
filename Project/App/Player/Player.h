@@ -19,7 +19,8 @@ public:
     void Update();
     void Draw(const Camera* _camera);
 
-    void SetFllowCamera(Camera* _camera);
+
+    const WorldTransform* GetWorldTransform() { return model_->GetWorldTransform(); }
 
 private:
     std::unique_ptr<ObjectModel> model_ = nullptr;

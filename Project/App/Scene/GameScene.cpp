@@ -34,6 +34,9 @@ void GameScene::Initialize()
     pPlayer_ = std::make_unique<Player>();
     pPlayer_->Initialize();
 
+    followCamera_ = std::make_unique<FollowCamera>();
+    followCamera_->Initialize({ 0,5,-20 });
+    followCamera_->SetTarget(pPlayer_->GetWorldTransform());
 
 
 #pragma endregion
@@ -58,16 +61,16 @@ void GameScene::Update()
     {
         debugCamera_.Update();
         SceneCamera_.matView_ = debugCamera_.matView_;
-        SceneCamera_.TransferData();
         ParticleManager::GetInstance()->Update(debugCamera_.rotate_);
     }
     else
     {
-        SceneCamera_.Update();
-        SceneCamera_.UpdateMatrix();
-        ParticleManager::GetInstance()->Update(SceneCamera_.rotate_);
+        followCamera_->Update();
+        SceneCamera_.matView_ = followCamera_->GetView();
+        ParticleManager::GetInstance()->Update(followCamera_->GetRotation());
     }
 
+    SceneCamera_.TransferData();
 }
 
 void GameScene::Draw()
