@@ -1,0 +1,10 @@
+{
+    "Player": {
+        "ModelPath": [
+            "Sphere/Sphere.obj"
+        ],
+        "MoveSpeed": [
+            0.10000000149011612
+        ]
+    }
+}

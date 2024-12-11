@@ -16,17 +16,26 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{1c174cb5-4d29-445a-bfce-736996fa6199}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{13e7b584-7d7e-414b-8416-952644acaed9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="App\GameScene.cpp">
+    <ClCompile Include="App\Player\Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Scene\GameScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App\GameScene.h">
+    <ClInclude Include="App\Player\Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\GameScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,6 +12,9 @@
 
 #include <memory>
 
+#include <App/Player/Player.h>
+
+
 class GameScene :public BaseScene
 {
 public:
@@ -37,6 +40,8 @@ private:
     ParticleManager* particleManager_ = nullptr;
 
     std::unique_ptr<ObjectModel> plane_ = nullptr;
+
+    std::unique_ptr<Player> pPlayer_;
 
 
 #ifdef _DEBUG
