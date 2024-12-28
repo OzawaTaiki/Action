@@ -5,7 +5,7 @@
 #include <Framework/Camera/Camera.h>
 #include <Framework/Camera/DebugCamera.h>
 #include <Rendering/Model/ObjectModel.h>
-#include <Systems/Config/ConfigManager.h>
+#include <Systems/JsonBinder/JsonBinder.h>
 #include <Framework/Particle/ParticleManager.h>
 #include <Rendering/LineDrawer/LineDrawer.h>
 #include <Systems/Input/Input.h>

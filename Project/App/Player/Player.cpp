@@ -4,17 +4,16 @@
 
 void Player::Initialize()
 {
-    config_ = std::make_unique<Config>("Player", "Resources/Data/Parameter/");
+    jsonBinder_ = std::make_unique<JsonBinder>("Player", "Resources/Data/Parameter/");
 
-    config_->SetVariable("ModelPath", &modelPath_);
-    config_->SetVariable("MoveSpeed", &moveSpeed_);
+    jsonBinder_->RegisterVariable("ModelPath", &modelPath_);
+    jsonBinder_->RegisterVariable("MoveSpeed", &moveSpeed_);
 
     if (modelPath_.empty())
         modelPath_ = "Sphere/Sphere.obj";
 
     model_ = std::make_unique<ObjectModel>();
     model_->Initialize(modelPath_, "Player");
-
 
 }
 
@@ -26,8 +25,18 @@ void Player::Update()
 
     Input::GetInstance()->GetMove(move_, moveSpeed_);
 
+    // 移動がない場合コントローラー
+    if (move_.x == 0 && move_.y == 0 && move_.z == 0)
+    {
+        Vector2 padMove = Input::GetInstance()->GetPadLeftStick();
+        move_.x = padMove.x;
+        move_.z = padMove.y;
+
+        move_ *= moveSpeed_;
+    }
+
     move_.y = 0;
-    model_->translate_ += move_ * moveSpeed_;
+    model_->translate_ += move_ ;
 
     model_->Update();
 }
@@ -45,7 +54,7 @@ void Player::ImGui()
     ImGui::Text("MoveSpeed");
     ImGui::DragFloat("MoveSpeed", &moveSpeed_, 0.01f);
     if (ImGui::Button("Save"))
-        config_->Save();
+        jsonBinder_->Save();
 
     ImGui::End();
 

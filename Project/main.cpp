@@ -10,7 +10,7 @@
 #include "UI/ImGuiManager/ImGuiManager.h"
 #include "Framework/Particle/ParticleManager.h"
 #include "Systems/Utility/RandomGenerator.h"
-#include "Systems/Config/ConfigManager.h"
+#include "Systems/JsonBinder/JsonHub.h"
 #include "Systems/Time/Time.h"
 
 /*-----シーン-----*/
@@ -41,8 +41,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ParticleManager* particle = ParticleManager::GetInstance();
 	particle->Initialize();
 
-	ConfigManager::GetInstance()->Initialize();
-	ConfigManager::GetInstance()->LoadData();
+    JsonHub::GetInstance()->Initialize();
 
 
 	TextureManager::GetInstance()->Initialize();
