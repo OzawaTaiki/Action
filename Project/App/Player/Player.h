@@ -2,7 +2,7 @@
 
 #include <Rendering/Model/ObjectModel.h>
 #include <Framework/Camera/Camera.h>
-#include <Systems/Config/Config.h>
+#include <Systems/JsonBinder/JsonBinder.h>
 
 #include <memory>
 #include <string>
@@ -29,7 +29,7 @@ private:
     float moveSpeed_ = 1.0f;
 
 
-    std::unique_ptr<Config> config_ = nullptr;
+    std::unique_ptr<JsonBinder> jsonBinder_ = nullptr;
     std::string modelPath_ = "Sphere/Sphere.obj";
 
 #ifdef _DEBUG
