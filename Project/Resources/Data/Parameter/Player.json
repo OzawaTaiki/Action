@@ -1,6 +1,6 @@
 {
     "Player": {
-        "ModelPath": "Sphere/Sphere.obj",
+        "ModelPath": "Player/Player.gltf",
         "MoveSpeed": 0.15000000596046448
     }
 }

@@ -67,8 +67,21 @@ void Player::ImGui()
     ImGui::Begin("Player");
     ImGui::Text("MoveSpeed");
     ImGui::DragFloat("MoveSpeed", &moveSpeed_, 0.01f);
+
+    static char modelName[256];
+    ImGui::InputText("ModelPath", modelName, 256);
+    if (ImGui::Button("Set"))
+    {
+        modelPath_ = modelName;
+        model_->SetModel(modelPath_);
+    }
+    ImGui::Text("ModelPath : %s", modelPath_.c_str());
+
+
     if (ImGui::Button("Save"))
         jsonBinder_->Save();
+
+
 
     ImGui::End();
 
