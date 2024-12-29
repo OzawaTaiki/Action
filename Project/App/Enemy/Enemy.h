@@ -25,6 +25,9 @@ private:
     std::unique_ptr<JsonBinder> jsonBinder_;
     std::string modelPath_ = "Sphere/Sphere.obj";
     Vector4 color_ = {1,1,1,1};
+#ifdef _DEBUG
+    char modelName_[256];
+#endif // _DEBUG
 
 
 };

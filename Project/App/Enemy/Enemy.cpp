@@ -18,7 +18,7 @@ void Enemy::Initialize()
     jsonBinder_->RegisterVariable("ModelPath", &modelPath_);
 
     if (modelPath_.empty())
-        modelPath_ = "";
+        modelPath_ = "Enemy/Enemy.gltf";
 
     model_ = std::make_unique<ObjectModel>();
     model_->Initialize(modelPath_, enemyName);
@@ -59,6 +59,38 @@ void Enemy::Draw(const Camera* _camera)
 
 void Enemy::ImGui()
 {
+#ifdef _DEBUG
+    std::string name = "Enemy_" + std::to_string(enemyID_);
+
+    ImGui::BeginTabBar("Enemy");
+    if (ImGui::BeginTabItem(name.c_str()))
+    {
+        ImGui::Text("HP : %f", hp_);
+        ImGui::ColorEdit4("Color", &color_.x);
+        ImGui::InputText("ModelPath", modelName_, 256);
+        if (ImGui::Button("Set"))
+        {
+            modelPath_ = modelName_;
+            model_->SetModel(modelPath_);
+        }
+        ImGui::Text("ModelPath : %s", modelPath_.c_str());
+
+        if (ImGui::Button("Delete"))
+        {
+            isAlive_ = false;
+        }
+
+        if (ImGui::Button("Save"))
+        {
+            jsonBinder_->Save();
+        }
+        ImGui::EndTabItem();
+    }
+    ImGui::EndTabBar();
+
+
+#endif // _DEBUG
+
 }
 
 void Enemy::OnCollision(const Collider* _other)
