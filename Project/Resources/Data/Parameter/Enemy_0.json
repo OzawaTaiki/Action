@@ -1,0 +1,12 @@
+{
+    "Enemy_0": {
+        "ModelPath": "Enemy/Enemy.gltf",
+        "color": {
+            "w": 1.0,
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "hp": -131.0
+    }
+}
