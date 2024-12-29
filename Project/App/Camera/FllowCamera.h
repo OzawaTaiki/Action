@@ -5,6 +5,8 @@
 #include <Framework/Camera/Camera.h>
 #include <Rendering/Model/WorldTransform.h>
 
+class Player;
+
 class FollowCamera
 {
 public:
@@ -15,7 +17,6 @@ public:
     void Initialize(const Vector3& _offsetPos);
     void Update();
 
-    void SetTarget(const WorldTransform* _target) { target_ = _target; }
     void SetOffsetPos(const Vector3& _offset) { offsetPos_ = _offset; }
     void SetRot(const Vector3& _offset) { offsetRot_ = _offset; }
 
@@ -24,15 +25,19 @@ public:
 
     Vector3 GetRotation()const { return camera_.rotate_; }
 
+    void SetPlayer(Player* _player) { target_ = _player; }
 
 
 private:
 
+    void Rotate();
+
+    Player* target_ = nullptr;
+    float rotationSpeed_ = 0.05f;
 
     Vector3 offsetPos_ = {};
     Vector3 offsetRot_ = {};
 
-    const WorldTransform* target_ = nullptr;
     Camera camera_ = {};
 
 };

@@ -18,7 +18,7 @@ public:
     ~Player() = default;
 
     void Initialize();
-    void Update();
+    void Update(const Vector3& _cameraroate);
     void Draw(const Camera* _camera);
 
     void OnCollision(const Collider* _other) {}
@@ -26,6 +26,8 @@ public:
     const WorldTransform* GetWorldTransform() { return model_->GetWorldTransform(); }
 
 private:
+    void Move(const Matrix4x4& _cameraRotMat);
+
     std::unique_ptr<ObjectModel> model_ = nullptr;
     std::unique_ptr<Collider> collider_ = nullptr;
 
