@@ -3,6 +3,8 @@
 #include <Rendering/Model/ObjectModel.h>
 #include <Framework/Camera/Camera.h>
 #include <Systems/JsonBinder/JsonBinder.h>
+#include <Physics/Collision/Collider.h>
+
 
 #include <memory>
 #include <string>
@@ -19,11 +21,14 @@ public:
     void Update();
     void Draw(const Camera* _camera);
 
+    void OnCollision(const Collider* _other) {}
 
     const WorldTransform* GetWorldTransform() { return model_->GetWorldTransform(); }
 
 private:
     std::unique_ptr<ObjectModel> model_ = nullptr;
+    std::unique_ptr<Collider> collider_ = nullptr;
+
 
     Vector3 move_ = {};
     float moveSpeed_ = 1.0f;

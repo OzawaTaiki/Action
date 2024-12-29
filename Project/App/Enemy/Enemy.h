@@ -15,6 +15,8 @@ public:
 
     void ImGui() override;
 
+    void OnCollision(const Collider* _other);
+
 private:
     static uint32_t enemyCount_;
 

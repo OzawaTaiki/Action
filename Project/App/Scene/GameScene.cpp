@@ -3,6 +3,7 @@
 #include <Rendering/Sprite/Sprite.h>
 #include <UI/ImGuiManager/ImGuiManager.h>
 #include <Framework/eScene/SceneManager.h>
+#include <Physics/Collision/CollisionManager.h>
 
 std::unique_ptr<BaseScene>GameScene::Create()
 {
@@ -47,6 +48,7 @@ void GameScene::Initialize()
 
 void GameScene::Update()
 {
+    CollisionManager::GetInstance()->ResetColliderList();
 
 #ifdef _DEBUG
     ImGui();
@@ -74,6 +76,7 @@ void GameScene::Update()
         ParticleManager::GetInstance()->Update(followCamera_->GetRotation());
     }
 
+    CollisionManager::GetInstance()->CheckAllCollision();
     SceneCamera_.TransferData();
 }
 

@@ -1,7 +1,6 @@
 #include "Player.h"
 #include <Systems/Input/Input.h>
 
-
 void Player::Initialize()
 {
     jsonBinder_ = std::make_unique<JsonBinder>("Player", "Resources/Data/Parameter/");
@@ -14,6 +13,15 @@ void Player::Initialize()
 
     model_ = std::make_unique<ObjectModel>();
     model_->Initialize(modelPath_, "Player");
+
+    collider_ = std::make_unique<Collider>();
+    collider_->SetBoundingBox(Collider::BoundingBox::AABB_3D);
+    collider_->SetShape(model_->GetMin(), model_->GetMax());
+    collider_->SetAtrribute("Player");
+    collider_->SetMask("Player");
+    collider_->SetGetWorldMatrixFunc([this]() {return model_->GetWorldTransform()->matWorld_; });
+    collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
+    collider_->SetReferencePoint({ 0,0,0 });
 
 }
 
@@ -38,12 +46,18 @@ void Player::Update()
     move_.y = 0;
     model_->translate_ += move_ ;
 
+    collider_->RegsterCollider();
+
     model_->Update();
 }
 
 void Player::Draw(const Camera* _camera)
 {
     model_->Draw(_camera, { 1,1,1,1 });
+#ifdef _DEBUG
+    collider_->Draw();
+#endif // _DEBUG
+
 }
 
 #ifdef _DEBUG

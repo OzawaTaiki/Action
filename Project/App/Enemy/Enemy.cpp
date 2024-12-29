@@ -23,6 +23,15 @@ void Enemy::Initialize()
     model_ = std::make_unique<ObjectModel>();
     model_->Initialize(modelPath_, enemyName);
 
+    collider_ = std::make_unique<Collider>();
+    collider_->SetBoundingBox(Collider::BoundingBox::AABB_3D);
+    collider_->SetShape(model_->GetMin(), model_->GetMax());
+    collider_->SetAtrribute("Enemy");
+    collider_->SetMask("Enemy");
+    collider_->SetGetWorldMatrixFunc([this]() {return model_->GetWorldTransform()->matWorld_; });
+    collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
+    collider_->SetReferencePoint({ 0,0,0 });
+
 
 }
 
@@ -32,6 +41,9 @@ void Enemy::Update()
     ImGui();
 #endif // _DEBUG
 
+    color_ = { 1,1,1,1 };
+
+    collider_->RegsterCollider();
 
     model_->Update();
 }
@@ -39,8 +51,25 @@ void Enemy::Update()
 void Enemy::Draw(const Camera* _camera)
 {
     model_->Draw(_camera, color_);
+
+#ifdef _DEBUG
+    collider_->Draw();
+#endif // _DEBUG
 }
 
 void Enemy::ImGui()
 {
+}
+
+void Enemy::OnCollision(const Collider* _other)
+{
+    if (_other->GetName() == "Player")
+    {
+        hp_ -= 1;
+        color_ = { 1,0,0,1 };
+        if (hp_ <= 0)
+        {
+            isAlive_ = false;
+        }
+    }
 }
