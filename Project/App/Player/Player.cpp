@@ -83,6 +83,10 @@ void Player::Move(const Matrix4x4& _cameraRotMat)
     }
 }
 
+// TODO : 敵がplayerを追従するようにする
+// TODO : Playerの攻撃（とりあえず単発） 敵にダメージを入れられるように。敵HP0以下で削除
+// TODO : 敵の攻撃（とりあえず単発） Playerにダメージを入れられるように。PlayerHP0以下でゲームオーバー
+
 void Player::Rotation()
 {
     model_->rotate_.y = LerpShortAngle(model_->rotate_.y, targetDirection_, 0.1f);
