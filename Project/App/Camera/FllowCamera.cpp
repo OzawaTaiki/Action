@@ -1,5 +1,11 @@
 #include "FllowCamera.h"
+#include "App/Player/Player.h"
+#include <Systems/Input/Input.h>
+#include <Physics/Math/MatrixFunction.h>
+#include <Physics/Math/VectorFunction.h>
+
 #include <stdexcept>
+
 
 void FollowCamera::Initialize(const Vector3& _offsetPos)
 {
@@ -23,11 +29,30 @@ void FollowCamera::Update()
     if (target_ == nullptr)
         throw std::runtime_error("target is nullptr");
 
-    camera_.translate_ = target_->GetWorldPosition() + offsetPos_;
-    camera_.rotate_ = offsetRot_;
+    Rotate();
+
+    //camera_.translate_ = target_->GetWorldTransform()->GetWorldPosition() + offsetPos_;
+    //camera_.rotate_ = offsetRot_;
 
 
     camera_.Update(false);
     camera_.UpdateMatrix();
+
+}
+
+void FollowCamera::Rotate()
+{
+    // スティックの入力を取得
+    Vector2 padRightStick = Input::GetInstance()->GetPadRightStick();
+
+    // 取得した値をPlayerを基準に回転させる
+    camera_.rotate_.y += padRightStick.x * rotationSpeed_; // 左右
+    camera_.rotate_.x -= padRightStick.y * rotationSpeed_; // 上下
+
+    Matrix4x4 rotMat = MakeRotateMatrix(camera_.rotate_);
+    Vector3 offset = TransformNormal(offsetPos_, rotMat);
+
+    camera_.translate_ = target_->GetWorldTransform()->GetWorldPosition() + offset;
+
 
 }

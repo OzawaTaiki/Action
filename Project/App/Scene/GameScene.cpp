@@ -16,7 +16,7 @@ GameScene::~GameScene()
 void GameScene::Initialize()
 {
     SceneCamera_.Initialize();
-    SceneCamera_.translate_ = { 0,5,-20 };
+    SceneCamera_.translate_ = { 0,2.5f,-20 };
     SceneCamera_.rotate_ = { 0.26f,0,0 };
     SceneCamera_.UpdateMatrix();
 
@@ -36,8 +36,8 @@ void GameScene::Initialize()
     pPlayer_->Initialize();
 
     followCamera_ = std::make_unique<FollowCamera>();
-    followCamera_->Initialize({ 0,5,-20 });
-    followCamera_->SetTarget(pPlayer_->GetWorldTransform());
+    followCamera_->Initialize({ 0,2.0f,-20 });
+    followCamera_->SetPlayer(pPlayer_.get());
 
     pEnemy_ = std::make_unique<Enemy>();
     pEnemy_->Initialize();
@@ -60,8 +60,9 @@ void GameScene::Update()
 
     plane_->Update();
 
-    pPlayer_->Update();
+    followCamera_->Update();
     pEnemy_->Update();
+    pPlayer_->Update(followCamera_->GetRotation());
 
     if (enableDebugCamera_)
     {
@@ -71,7 +72,6 @@ void GameScene::Update()
     }
     else
     {
-        followCamera_->Update();
         SceneCamera_.matView_ = followCamera_->GetView();
         ParticleManager::GetInstance()->Update(followCamera_->GetRotation());
     }
