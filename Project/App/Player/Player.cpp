@@ -2,6 +2,8 @@
 #include <Systems/Input/Input.h>
 #include <Physics/Math/MatrixFunction.h>
 #include <Physics/Math/VectorFunction.h>
+#include <Physics/Math/MyLib.h>
+
 
 void Player::Initialize()
 {
@@ -33,9 +35,11 @@ void Player::Update(const Vector3& _cameraroate)
     ImGui();
 #endif // _DEBUG
 
-   
+
     Matrix4x4 cameraRotMat = MakeRotateMatrix(_cameraroate);
     Move(cameraRotMat);
+
+    Rotation();
 
     collider_->RegsterCollider();
 
@@ -65,11 +69,23 @@ void Player::Move(const Matrix4x4& _cameraRotMat)
         move_ *= moveSpeed_;
     }
 
+    Vector3 normalizeMove = move_.Normalize();
+
     move_ = TransformNormal(move_, _cameraRotMat);
     move_.y = 0;
 
     model_->translate_ += move_;
 
+    if (normalizeMove != Vector3(0, 0, 0))
+    {
+        normalizeMove = TransformNormal(normalizeMove, _cameraRotMat);
+        targetDirection_ = std::atan2(normalizeMove.x, normalizeMove.z);
+    }
+}
+
+void Player::Rotation()
+{
+    model_->rotate_.y = LerpShortAngle(model_->rotate_.y, targetDirection_, 0.1f);
 }
 
 #ifdef _DEBUG

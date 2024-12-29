@@ -27,6 +27,7 @@ public:
 
 private:
     void Move(const Matrix4x4& _cameraRotMat);
+    void Rotation();
 
     std::unique_ptr<ObjectModel> model_ = nullptr;
     std::unique_ptr<Collider> collider_ = nullptr;
@@ -34,6 +35,8 @@ private:
 
     Vector3 move_ = {};
     float moveSpeed_ = 1.0f;
+
+    float targetDirection_ = {};
 
 
     std::unique_ptr<JsonBinder> jsonBinder_ = nullptr;
