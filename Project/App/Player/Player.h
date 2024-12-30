@@ -5,6 +5,8 @@
 #include <Systems/JsonBinder/JsonBinder.h>
 #include <Physics/Collision/Collider.h>
 
+#include <App/Weapon/Sword.h>
+
 
 #include <memory>
 #include <string>
@@ -32,6 +34,7 @@ private:
 
     std::unique_ptr<ObjectModel> model_ = nullptr;
     std::unique_ptr<Collider> collider_ = nullptr;
+    std::unique_ptr<Sword> weapon_ = nullptr;
 
 
     Vector3 move_ = {};
@@ -45,6 +48,8 @@ private:
 
 #ifdef _DEBUG
     void ImGui();
+
+    bool drawCollider_ = true;
 #endif // _DEBUG
 
 };

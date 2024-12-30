@@ -27,6 +27,11 @@ void Player::Initialize()
     collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
     collider_->SetReferencePoint({ 0,0,0 });
 
+    weapon_ = std::make_unique<Sword>();
+    weapon_->Initialize();
+    weapon_->SetParent(model_->GetWorldTransform());
+
+
 }
 
 void Player::Update(const Vector3& _cameraroate)
@@ -44,13 +49,17 @@ void Player::Update(const Vector3& _cameraroate)
     collider_->RegsterCollider();
 
     model_->Update();
+    weapon_->Update();
 }
 
 void Player::Draw(const Camera* _camera)
 {
     model_->Draw(_camera, { 1,1,1,1 });
+
+    weapon_->Draw(_camera);
 #ifdef _DEBUG
-    collider_->Draw();
+    if (drawCollider_)
+        collider_->Draw();
 #endif // _DEBUG
 
 }
@@ -84,6 +93,8 @@ void Player::Move(const Matrix4x4& _cameraRotMat)
 }
 
 // TODO : Playerの攻撃（とりあえず単発） 敵にダメージを入れられるように。敵HP0以下で削除
+// 右上から左下への袈裟斬り qauternionで回転させるると楽だと思うが...
+
 // TODO : 敵の攻撃（とりあえず単発） Playerにダメージを入れられるように。PlayerHP0以下でゲームオーバー
 
 void Player::Rotation()
@@ -96,23 +107,29 @@ void Player::Rotation()
 void Player::ImGui()
 {
     ImGui::Begin("Player");
-    ImGui::Text("MoveSpeed");
-    ImGui::DragFloat("MoveSpeed", &moveSpeed_, 0.01f);
-
-    static char modelName[256];
-    ImGui::InputText("ModelPath", modelName, 256);
-    if (ImGui::Button("Set"))
+    ImGui::BeginTabBar("Player");
+    if (ImGui::BeginTabItem("Player"))
     {
-        modelPath_ = modelName;
-        model_->SetModel(modelPath_);
+        ImGui::Text("MoveSpeed");
+        ImGui::DragFloat("MoveSpeed", &moveSpeed_, 0.01f);
+        if (ImGui::Checkbox("DrawCollider", &drawCollider_))
+            weapon_->SetDrawCollider(drawCollider_);
+
+        static char modelName[256];
+        ImGui::InputText("ModelPath", modelName, 256);
+        if (ImGui::Button("Set"))
+        {
+            modelPath_ = modelName;
+            model_->SetModel(modelPath_);
+        }
+        ImGui::Text("ModelPath : %s", modelPath_.c_str());
+
+
+        if (ImGui::Button("Save"))
+            jsonBinder_->Save();
+        ImGui::EndTabItem();
     }
-    ImGui::Text("ModelPath : %s", modelPath_.c_str());
-
-
-    if (ImGui::Button("Save"))
-        jsonBinder_->Save();
-
-
+    ImGui::EndTabBar();
 
     ImGui::End();
 

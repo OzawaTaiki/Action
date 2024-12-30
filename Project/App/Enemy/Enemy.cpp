@@ -39,7 +39,12 @@ void Enemy::Update()
 
     color_ = { 1,1,1,1 };
 
+#ifdef _DEBUG
+    if (idleFlag_)          Idle();
+    else                    f_currentState_();
+#else
     f_currentState_();
+#endif
 
     collider_->RegsterCollider();
 
@@ -51,7 +56,8 @@ void Enemy::Draw(const Camera* _camera)
     model_->Draw(_camera, color_);
 
 #ifdef _DEBUG
-    collider_->Draw();
+    if (drawCollider_)
+        collider_->Draw();
 #endif // _DEBUG
 }
 
@@ -68,6 +74,8 @@ void Enemy::ImGui()
         ImGui::DragFloat("MoveSpeed", &moveSpeed_, 0.01f, 0.01f);
         ImGui::DragFloat("ChaseEndDistance", &chaseEndDistance_, 0.01f, 0.01f);
         ImGui::ColorEdit4("Color", &color_.x);
+        ImGui::Checkbox("Idle", &idleFlag_);
+        ImGui::Checkbox("DrawCollider", &drawCollider_);
         ImGui::InputText("ModelPath", modelName_, 256);
         if (ImGui::Button("Set"))
         {

@@ -44,6 +44,9 @@ private:
     Vector4 color_ = {1,1,1,1};
 #ifdef _DEBUG
     char modelName_[256];
+
+    bool drawCollider_ = true;
+    bool idleFlag_ = true;
 #endif // _DEBUG
 
 
