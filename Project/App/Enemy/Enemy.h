@@ -17,10 +17,27 @@ public:
 
     void OnCollision(const Collider* _other);
 
-private:
-    static uint32_t enemyCount_;
+    void SetPlayerPosition(const WorldTransform* _playerWT) { playerWT_ = _playerWT; }
 
+private:
+    void InitCollider();
+
+    void Idle();
+
+    void ChasePlayer();
+
+    void Rotation();
+
+    static uint32_t enemyCount_;
     uint32_t enemyID_;
+
+    const WorldTransform* playerWT_ = nullptr;
+
+    std::function<void()> f_currentState_;
+    
+    float chaseEndDistance_ = 1.0f;
+    float moveSpeed_ = 0.1f;
+    float targetAngle_ = 0.0f;
 
     std::unique_ptr<JsonBinder> jsonBinder_;
     std::string modelPath_ = "Sphere/Sphere.obj";

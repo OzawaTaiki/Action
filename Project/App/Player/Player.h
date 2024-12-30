@@ -24,6 +24,7 @@ public:
     void OnCollision(const Collider* _other) {}
 
     const WorldTransform* GetWorldTransform() { return model_->GetWorldTransform(); }
+    Vector3 GetPosition() { return model_->GetWorldTransform()->GetWorldPosition(); }
 
 private:
     void Move(const Matrix4x4& _cameraRotMat);

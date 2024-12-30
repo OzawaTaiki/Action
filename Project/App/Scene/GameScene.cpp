@@ -41,6 +41,7 @@ void GameScene::Initialize()
 
     pEnemy_ = std::make_unique<Enemy>();
     pEnemy_->Initialize();
+    pEnemy_->SetPlayerPosition(pPlayer_->GetWorldTransform());
 
 
 #pragma endregion
@@ -61,8 +62,8 @@ void GameScene::Update()
     plane_->Update();
 
     followCamera_->Update();
-    pEnemy_->Update();
     pPlayer_->Update(followCamera_->GetRotation());
+    pEnemy_->Update();
 
     if (enableDebugCamera_)
     {
