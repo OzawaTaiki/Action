@@ -18,6 +18,51 @@
 			"name":"\u7acb\u65b9\u4f53.002"
 		}
 	],
+	"animations":[
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":0,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":1,
+					"target":{
+						"node":0,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":2,
+					"target":{
+						"node":0,
+						"path":"scale"
+					}
+				}
+			],
+			"name":"kesagiri",
+			"samplers":[
+				{
+					"input":4,
+					"interpolation":"STEP",
+					"output":5
+				},
+				{
+					"input":6,
+					"interpolation":"LINEAR",
+					"output":7
+				},
+				{
+					"input":4,
+					"interpolation":"STEP",
+					"output":8
+				}
+			]
+		}
+	],
 	"materials":[
 		{
 			"doubleSided":true,
@@ -94,6 +139,48 @@
 			"componentType":5123,
 			"count":450,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":4,
+			"componentType":5126,
+			"count":2,
+			"max":[
+				1
+			],
+			"min":[
+				0
+			],
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":5,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":6,
+			"componentType":5126,
+			"count":25,
+			"max":[
+				1
+			],
+			"min":[
+				0
+			],
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":7,
+			"componentType":5126,
+			"count":25,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":8,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
 		}
 	],
 	"bufferViews":[
@@ -120,6 +207,31 @@
 			"byteLength":900,
 			"byteOffset":7936,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":8,
+			"byteOffset":8836
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":8844
+		},
+		{
+			"buffer":0,
+			"byteLength":100,
+			"byteOffset":8868
+		},
+		{
+			"buffer":0,
+			"byteLength":400,
+			"byteOffset":8968
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":9368
 		}
 	],
 	"samplers":[
@@ -130,7 +242,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":8836,
+			"byteLength":9392,
 			"uri":"Sword.bin"
 		}
 	]

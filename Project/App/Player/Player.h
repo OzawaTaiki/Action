@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <string>
+#include <functional>
 
 
 class Player
@@ -32,9 +33,12 @@ private:
     void Move(const Matrix4x4& _cameraRotMat);
     void Rotation();
 
+    void Idle();
+
+    std::function<void()> f_currentState_ = nullptr;
+
     std::unique_ptr<ObjectModel> model_ = nullptr;
     std::unique_ptr<Collider> collider_ = nullptr;
-    std::unique_ptr<Sword> weapon_ = nullptr;
 
 
     Vector3 move_ = {};
@@ -42,6 +46,23 @@ private:
 
     float targetDirection_ = {};
 
+#pragma region Weapon
+
+    std::unique_ptr<Sword> weapon_ = nullptr;
+
+    Quaternion kesagiriStart_ = Quaternion::Identity();
+    Quaternion kesagiriEnd_ = Quaternion::Identity();
+    Quaternion beginQuaternion_ = Quaternion::Identity(); // 開始時のクォータニオン
+
+    float kesagiriDuration_ = 0.5f;         // 振り下ろし終わるまでの時間
+    float IdleToKesaDuration_ = 0.5f;       // 振り下ろすまでの時間
+
+    bool duringSetup_ = false;              // セットアップ中か
+
+    void BeginKesagiri();
+    void Kesagiri();
+
+#pragma endregion / Weapon End
 
     std::unique_ptr<JsonBinder> jsonBinder_ = nullptr;
     std::string modelPath_ = "Sphere/Sphere.obj";

@@ -31,7 +31,7 @@ void Player::Initialize()
     weapon_->Initialize();
     weapon_->SetParent(model_->GetWorldTransform());
 
-
+    f_currentState_ = [this]() {Idle(); };
 }
 
 void Player::Update(const Vector3& _cameraroate)
@@ -43,6 +43,8 @@ void Player::Update(const Vector3& _cameraroate)
 
     Matrix4x4 cameraRotMat = MakeRotateMatrix(_cameraroate);
     Move(cameraRotMat);
+
+    f_currentState_();
 
     Rotation();
 
@@ -93,7 +95,7 @@ void Player::Move(const Matrix4x4& _cameraRotMat)
 }
 
 // TODO : Playerの攻撃（とりあえず単発） 敵にダメージを入れられるように。敵HP0以下で削除
-// 右上から左下への袈裟斬り qauternionで回転させるると楽だと思うが...
+// 右上から左下への袈裟斬り qauternionで回転させると楽だと思うが...
 
 // TODO : 敵の攻撃（とりあえず単発） Playerにダメージを入れられるように。PlayerHP0以下でゲームオーバー
 
@@ -101,6 +103,43 @@ void Player::Rotation()
 {
     model_->rotate_.y = LerpShortAngle(model_->rotate_.y, targetDirection_, 0.1f);
 }
+
+void Player::Idle()
+{
+    if (Input::GetInstance()->IsPadTriggered(PadButton::iPad_A)||
+        Input::GetInstance()->IsKeyTriggered(DIK_SPACE))
+    {
+        BeginKesagiri();
+        f_currentState_ = [this]() {Kesagiri(); };
+    }
+    else
+    {
+        model_->rotate_.y = LerpShortAngle(model_->rotate_.y, targetDirection_, 0.1f);
+    }
+}
+
+void Player::BeginKesagiri()
+{
+    duringSetup_ = true;
+}
+
+void Player::Kesagiri()
+{
+    if (duringSetup_)
+    {
+        duringSetup_ = weapon_->ToTargetQuaternion(kesagiriStart_, IdleToKesaDuration_);
+        if (!duringSetup_)
+        {
+
+        }
+    }
+    else
+    {
+        weapon_->ToTargetQuaternion(kesagiriEnd_, kesagiriDuration_);
+    }
+}
+
+
 
 #ifdef _DEBUG
 #include <imgui.h>
