@@ -101,7 +101,7 @@ void GameScene::Draw()
 
 //-------------------------------------------------------------------------
     Sprite::PreDraw();
-
+    EnemyManager::GetInstance()->DrawFront(&SceneCamera_);
 
 //-------------------------------------------------------------------------
     ParticleManager::GetInstance()->Draw(&SceneCamera_);

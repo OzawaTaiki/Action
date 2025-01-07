@@ -16,6 +16,7 @@ public:
     void Initialize();
     void Update();
     void Draw(const Camera* _camera);
+    void DrawFront(const Camera* _camera);
 
     void SetPlayerPosition(const WorldTransform* _playerWT) { playerWT_ = _playerWT; }
 
