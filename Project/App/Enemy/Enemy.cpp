@@ -56,7 +56,7 @@ void Enemy::Draw(const Camera* _camera)
     model_->Draw(_camera, color_);
 
 #ifdef _DEBUG
-    if (drawCollider_)
+    if (gui_drawCollider_)
         collider_->Draw();
 #endif // _DEBUG
 }
@@ -75,7 +75,7 @@ void Enemy::ImGui()
         ImGui::DragFloat("ChaseEndDistance", &chaseEndDistance_, 0.01f, 0.01f);
         ImGui::ColorEdit4("Color", &color_.x);
         ImGui::Checkbox("Idle", &idleFlag_);
-        ImGui::Checkbox("DrawCollider", &drawCollider_);
+        ImGui::Checkbox("DrawCollider", &gui_drawCollider_);
         ImGui::InputText("ModelPath", modelName_, 256);
         if (ImGui::Button("Set"))
         {
@@ -105,7 +105,8 @@ void Enemy::ImGui()
 
 void Enemy::OnCollision(const Collider* _other)
 {
-    if (_other->GetName() == "Player")
+     if (_other->GetName() == "Player"||
+        _other->GetName() == "Sword")
     {
         hp_ -= 1;
         color_ = { 1,0,0,1 };
@@ -119,7 +120,7 @@ void Enemy::OnCollision(const Collider* _other)
 void Enemy::InitCollider()
 {
     collider_ = std::make_unique<Collider>();
-    collider_->SetBoundingBox(Collider::BoundingBox::AABB_3D);
+    collider_->SetBoundingBox(Collider::BoundingBox::OBB_3D);
     collider_->SetShape(model_->GetMin(), model_->GetMax());
     collider_->SetAtrribute("Enemy");
     collider_->SetMask("Enemy");

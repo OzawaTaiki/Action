@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <string>
+#include <functional>
 
 
 class Player
@@ -29,18 +30,53 @@ public:
     Vector3 GetPosition() { return model_->GetWorldTransform()->GetWorldPosition(); }
 
 private:
+    void UpdateRightArmTrans();
+
     void Move(const Matrix4x4& _cameraRotMat);
     void Rotation();
+    void Attack();
 
-    std::unique_ptr<ObjectModel> model_ = nullptr;
+    void Idle();
+
+    WorldTransform rightArm_ = {};
+    std::function<void()> f_currentState_ = nullptr;
+
+    std::unique_ptr<AnimationModel> model_ = nullptr;
     std::unique_ptr<Collider> collider_ = nullptr;
-    std::unique_ptr<Sword> weapon_ = nullptr;
 
 
     Vector3 move_ = {};
     float moveSpeed_ = 1.0f;
 
-    float targetDirection_ = {};
+    Vector3 targetDirection_ = {};
+    Quaternion targetQuaternion_ = Quaternion::Identity();
+
+#pragma region Weapon
+
+    std::unique_ptr<Sword> weapon_ = nullptr;
+
+#pragma endregion / Weapon End
+
+#pragma region Attack
+
+    std::optional<int32_t> currentAttack_ = std::nullopt;
+    std::optional<int32_t> nextAttack_ = std::nullopt;
+
+    // trigger
+    // attaking
+    // canCommbo
+    //
+
+    bool isTrigger_ = false;    // 攻撃ボタンが押されたかどうか
+    bool isAttacking_ = false;  // 攻撃中かどうか
+    bool canCommbo_ = false;    // コンボ可能かどうか
+    bool canAttack_ = true;     // 攻撃可能かどうか
+    bool toIdle_ = false;        // 攻撃後にIdle状態に戻るかどうか
+
+    std::vector<std::string> attackNames_ = { "Attack_01","Attack_02" ,"Attack_03" };
+
+
+#pragma endregion / Attack End
 
 
     std::unique_ptr<JsonBinder> jsonBinder_ = nullptr;
@@ -49,7 +85,7 @@ private:
 #ifdef _DEBUG
     void ImGui();
 
-    bool drawCollider_ = true;
+    bool gui_drawCollider_ = true;
 #endif // _DEBUG
 
 };
