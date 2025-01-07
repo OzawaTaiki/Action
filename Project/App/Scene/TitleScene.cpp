@@ -56,7 +56,8 @@ void TitleScene::Update()
     titleSprite_->Update();
     pressEnterSprite_->Update();
 
-    if (Input::GetInstance()->IsKeyTriggered(DIK_SPACE))
+    if (Input::GetInstance()->IsKeyTriggered(DIK_SPACE) ||
+        Input::GetInstance()->IsPadTriggered(PadButton::iPad_A))
         SceneManager::ReserveScene("Game");
 
     if (enableDebugCamera_)
