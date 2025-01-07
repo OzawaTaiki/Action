@@ -6,6 +6,8 @@
 #include <Physics/Collision/Collider.h>
 
 #include <App/Weapon/Sword.h>
+#include <App/CircleShadow/CircleShadow.h>
+
 
 
 #include <memory>
@@ -77,6 +79,8 @@ private:
 
 
 #pragma endregion / Attack End
+
+    std::unique_ptr<CircleShadow> circleShadow_ = nullptr;
 
 
     std::unique_ptr<JsonBinder> jsonBinder_ = nullptr;

@@ -2,7 +2,8 @@
 
 #include "BaseEnemy.h"
 #include <Systems/JsonBinder/JsonBinder.h>
-
+#include <App/CircleShadow/CircleShadow.h>
+#include <memory>
 class Enemy : public BaseEnemy
 {
 public:
@@ -45,6 +46,8 @@ private:
     float chaseEndDistance_ = 1.0f;
     float moveSpeed_ = 0.1f;
     float targetAngle_ = 0.0f;
+
+    std::unique_ptr<CircleShadow> circleShadow_ = nullptr;
 
     std::unique_ptr<JsonBinder> jsonBinder_;
     std::string modelPath_ = "enemy/enemy.gltf";
