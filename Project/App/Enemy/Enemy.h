@@ -45,7 +45,7 @@ private:
 #ifdef _DEBUG
     char modelName_[256];
 
-    bool drawCollider_ = true;
+    bool gui_drawCollider_ = true;
     bool idleFlag_ = true;
 #endif // _DEBUG
 

@@ -2,6 +2,7 @@
 #include <numbers>
 #include <Physics/Math/MyLib.h>
 #include <Systems/Time/Time.h>
+#include <Physics/Math/Easing.h>
 
 
 void Sword::Initialize()
@@ -18,7 +19,6 @@ void Sword::Initialize()
     //jsonBinder_->RegisterVariable("kesaDuration", &kesagiriDuration_);
 
 
-
     if (modelPath_.empty())
         modelPath_ = "Weapon/Sword.gltf";
 
@@ -29,10 +29,39 @@ void Sword::Initialize()
     collider_->SetShape(model_->GetMin(), model_->GetMax());
     collider_->SetAtrribute("Sword");
     collider_->SetMask({ "Sword","Player" });
-    collider_->SetGetWorldMatrixFunc([this]() {return model_->GetWorldTransform()->matWorld_; });
+    collider_->SetGetWorldMatrixFunc([this]() {return  model_->GetWorldTransform()->matWorld_; });
     collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
 
-    //model_->quaternion_=Quaternion::MakeRotateAxisAngleQuaternion({ 0,1,0 }, std::numbers::pi_v<float> / 4.0f);
+
+    //Vector3 axis = Vector3{ -1,1,0 }.Normalize();
+    //attackParams_["attack_01"] = {
+    //    Quaternion::MakeRotateAxisAngleQuaternion(axis, 0),
+    //    Quaternion::MakeRotateAxisAngleQuaternion(axis, std::numbers::pi_v<float>),
+    //    0.4f,
+    //    0.15f,
+    //    0.2f,
+    //    static_cast<uint32_t>(Easing::EasingFunc::EaseOutExpo)
+    //};
+
+    //Quaternion q = attackParams_["attack_01"].endQuaternion;
+    //attackParams_["attack_02"] = {
+    //    q * Quaternion::MakeRotateAxisAngleQuaternion({1,0,0}, 0),
+    //    q * Quaternion::MakeRotateAxisAngleQuaternion({1,0,0}, std::numbers::pi_v<float>),
+    //    0.4f,
+    //    0.15f,
+    //    0.2f,
+    //    static_cast<uint32_t>(Easing::EasingFunc::EaseOutExpo)
+    //};
+
+    //Quaternion q2 = attackParams_["attack_02"].endQuaternion;
+    //attackParams_["attack_03"] = {
+    //    q2 * Quaternion::MakeRotateAxisAngleQuaternion({ 0,1,1 }, 0),
+    //    q2 * Quaternion::MakeRotateAxisAngleQuaternion({ 0,1,1 }, std::numbers::pi_v<float>),
+    //    0.4f,
+    //    0.15f,
+    //    0.2f,
+    //    static_cast<uint32_t>(Easing::EasingFunc::EaseOutExpo)
+    //};
 
 }
 
@@ -42,6 +71,50 @@ void Sword::Update()
     ImGui();
 #endif // _DEBUG
 
+    //if (isActionActive_)
+    //{
+    //    elapsedTime += Time::GetDeltaTime<float>();
+    //    float t = elapsedTime / attackParams_[currentAction_].duration;
+    //    float easedT = Easing::SelectFuncPtr(attackParams_[currentAction_].easingType)(t);
+    //    auto param = attackParams_[currentAction_];
+    //    model_->rotate_ = Slerp(param.startQuaternion, param.endQuaternion, easedT);
+    //    if (t >= 1.0f)
+    //    {
+    //        elapsedTime = 0.0f;
+    //        isActionActive_ = false;
+    //        isWaitingForIdle_ = true;
+    //    }
+    //
+    //    model_->rotate_ = model_->rotate_.Normalize();
+    //}
+    //else if (!isIdle_)
+    //{
+    //    //elapsedTime += Time::GetDeltaTime<float>();
+    //    elapsedTime += 1.0f / 60.0f;
+    //    if (elapsedTime > attackParams_[currentAction_].timeToIdle ||
+    //        !isActionActive_ && !isWaitingForIdle_
+    //        )
+    //    {
+    //        if(isWaitingForIdle_)
+    //        {
+    //            isWaitingForIdle_ = false;
+    //            elapsedTime = 0.0f;
+    //        }
+    //
+    //        auto param = attackParams_[currentAction_];
+    //        float t = elapsedTime / attackParams_[currentAction_].toIdleDuration;
+    //        model_->rotate_ = Slerp(param.endQuaternion, Quaternion::Identity(), t);
+    //
+    //        if (t >= 1.0f)
+    //        {
+    //            elapsedTime = 0.0f;
+    //            isIdle_ = true;
+    //            model_->rotate_ = Quaternion::Identity();
+    //        }
+    //    }
+    //}
+
+    //collider_->RegsterCollider();
 
     model_->Update();
 }
@@ -51,8 +124,11 @@ void Sword::Draw(const Camera* _camera)
     model_->Draw(_camera, { 1,1,1,1 });
 
 #ifdef _DEBUG
-    if (drawCollider_)
+    if (isDrawCollider_||gui_drawCollider_)
+    {
         collider_->Draw();
+        isDrawCollider_ = false;
+    }
 #endif // _DEBUG
 }
 
@@ -63,11 +139,20 @@ void Sword::ImGui()
     ImGui::BeginTabBar("Player");
     if (ImGui::BeginTabItem("Sword"))
     {
-        ImGui::Checkbox("DrawCollider", &drawCollider_);
+        ImGui::Checkbox("DrawCollider", &gui_drawCollider_);
         ImGui::InputText("ModelPath", modelName_, 256);
         ImGui::DragFloat3("Offset", &model_->translate_.x, 0.01f);
+        if (ImGui::Button("kesagiri"))
+        {
+            model_->SetAnimation("kesagiri", false);
+        }
+
+        if (ImGui::Button("Init"))
+            Initialize();
+
         static Vector3 axis = { 0,1,0 };
-        static float angle = 0;/*
+        static float angle = 0;
+        /*
         if(ImGui::DragFloat4("RotateAxis", &axis.x, 0.01f))
             model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
         if (ImGui::DragFloat("RotateAngle", &angle, 0.01f))
@@ -84,7 +169,8 @@ void Sword::ImGui()
         if (ImGui::DragFloat("KesagiriStartAngle", &kesaSAngle, 0.01f))
             kesagiriStart_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
         if (ImGui::DragFloat("KesagiriEndAngle", &kesaEAngle, 0.01f))
-            kesagiriEnd_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);*/
+            kesagiriEnd_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
+            */
 
 
         if (ImGui::Button("Set"))
@@ -104,68 +190,11 @@ void Sword::ImGui()
 #endif // _DEBUG
 }
 
-bool Sword::ToTargetQuaternion(const Quaternion& _targetQuaternion, float _duration)
+void Sword::RegsitCollider()
 {
-    //// 経過時間を加算
-    //elapsedTime += Time::GetDeltaTime<float>();
-    //// 媒介変数tを求める
-    //float t = elapsedTime / _duration;
-    //// クォータニオンを補間
-    //model_->quaternion_ = Slerp(model_->quaternion_, _targetQuaternion, t);
+    collider_->RegsterCollider();
+#ifdef _DEBUG
+    isDrawCollider_ = true;
+#endif // _DEBUG
 
-    //if (t >= 1.0f)
-    //{
-    //    elapsedTime = 0.0f;
-    //    model_->quaternion_ = _targetQuaternion;
-    //    return true;
-    //}
-    return false;
 }
-
-//void Sword::BeginKesagiri()
-//{
-//    // 開始時のクォータニオンを保存
-//    beginQuaternion_ = model_->quaternion_;
-//
-//    // セットアップ中
-//    duringSetup_ = true;
-//}
-//
-//void Sword::Kesagiri()
-//{
-//    if (isActionActive_)
-//        return;
-//
-//    // セットアップ中
-//    if (duringSetup_)
-//    {
-//        // 経過時間を加算
-//        elapsedTime += Time::GetDeltaTime<float>();
-//        // 媒介変数tを求める
-//        float t = elapsedTime / IdleToKesaDuration_;
-//        // クォータニオンを補間
-//        model_->quaternion_ = Slerp(beginQuaternion_, kesagiriStart_, t);
-//
-//        // 経過時間が終了時間を超えたら初期化
-//        if (t >= 1.0f)
-//        {
-//            elapsedTime = 0.0f;
-//            model_->quaternion_ = kesagiriStart_;
-//        }
-//    }
-//    else
-//    {
-//        // 経過時間を加算
-//        elapsedTime += Time::GetDeltaTime<float>();
-//        // 媒介変数tを求める
-//        float t = elapsedTime / kesagiriDuration_;
-//        // クォータニオンを補間
-//        model_->quaternion_ = Slerp(kesagiriStart_, kesagiriEnd_, t);
-//        // 経過時間が終了時間を超えたら初期化
-//        if (t >= 1.0f)
-//        {
-//            elapsedTime = 0.0f;
-//            model_->quaternion_ = kesagiriEnd_;
-//        }
-//    }
-//}
