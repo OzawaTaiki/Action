@@ -14,11 +14,13 @@ void Enemy::Initialize()
     std::string enemyName = "Enemy";
     jsonBinder_ = std::make_unique<JsonBinder>(enemyName, "Resources/Data/Parameter/");
 
-    jsonBinder_->RegisterVariable("hp", &hp_);
+    jsonBinder_->RegisterVariable("hp", &maxHP_);
     jsonBinder_->RegisterVariable("color", &color_);
     jsonBinder_->RegisterVariable("ModelPath", &modelPath_);
     jsonBinder_->RegisterVariable("MoveSpeed", &moveSpeed_);
     jsonBinder_->RegisterVariable("ChaseEndDistance", &chaseEndDistance_);
+
+    hp_ = maxHP_;
 
     if (modelPath_.empty())
         modelPath_ = "Enemy/Enemy.gltf";

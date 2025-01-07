@@ -24,6 +24,8 @@ public:
 
 protected:
 
+
+    float maxHP_ = 100.0f;
     float hp_;
     bool isAlive_;
     std::unique_ptr<ObjectModel> model_ = nullptr;
