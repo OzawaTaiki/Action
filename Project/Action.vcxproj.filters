@@ -57,6 +57,21 @@
     <ClCompile Include="App\Weapon\Sword.cpp">
       <Filter>Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyHPUI.h">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyHPUI.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Scene\TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Scene\ClearScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Scene\GameOverScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\Player\Player.h">
@@ -85,6 +100,15 @@
     </ClInclude>
     <ClInclude Include="App\CircleShadow\CircleShadow.h">
       <Filter>CircleShadow</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\GameOverScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\ClearScene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

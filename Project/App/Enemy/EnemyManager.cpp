@@ -20,6 +20,8 @@ void EnemyManager::Initialize()
     Model* model = new Model();
     model->CreateFromObj(enemyModelPath_);
     delete model;
+
+    spawnCount_ = 0;
 }
 
 void EnemyManager::Update()
@@ -50,6 +52,9 @@ void EnemyManager::Draw(const Camera* _camera)
 
 void EnemyManager::SpawnEnemy(const uint32_t _spawnNum)
 {
+    if (enemySpawnNum_ < spawnCount_++)
+        return;
+
     Vector3 playerPos = playerWT_->GetWorldPosition();
     auto random = RandomGenerator::GetInstance();
 
@@ -83,6 +88,13 @@ void EnemyManager::SpawnEnemy(const uint32_t _spawnNum)
         enemy->SetPlayerPosition(playerWT_);
 
     }
+}
+
+bool EnemyManager::Clear()
+{
+    if (enemySpawnNum_ <= spawnCount_ && enemies_.empty())
+        return true;        
+    return false;
 }
 
 void EnemyManager::ImGui()

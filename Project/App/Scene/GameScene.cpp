@@ -59,6 +59,12 @@ void GameScene::Update()
         enableDebugCamera_ = !enableDebugCamera_;
 #endif // _DEBUG
 
+    if(EnemyManager::GetInstance()->Clear())
+        SceneManager::ReserveScene("Clear");
+
+    if(!pPlayer_->IsAlive())
+        SceneManager::ReserveScene("gameOver");
+
     plane_->Update();
 
     followCamera_->Update();
