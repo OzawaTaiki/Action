@@ -1,6 +1,6 @@
 {
     "Enemy": {
-        "ChaseEndDistance": 1.5,
+        "ChaseEndDistance": 2.0,
         "ModelPath": "Enemy/Enemy.gltf",
         "MoveSpeed": 0.05000000074505806,
         "color": {

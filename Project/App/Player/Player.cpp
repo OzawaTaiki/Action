@@ -115,26 +115,26 @@ void Player::Move(const Matrix4x4& _cameraRotMat)
     }
 
     move_.y = 0;
-    Vector3 normalizeMove = move_.Normalize();
 
     move_ = TransformNormal(move_, _cameraRotMat);
+    move_.y = 0;
+    Vector3 normalizeMove = move_.Normalize();
 
     model_->translate_ += move_;
 
     if (normalizeMove != Vector3(0, 0, 0))
     {
         targetDirection_ = normalizeMove;
+        targetDirection_.y = 0;
+        targetDirection_ = targetDirection_.Normalize();
+
         targetQuaternion_ = Quaternion::FromToRotation(Vector3(0, 0, 1), targetDirection_);
     }
 }
 
-// TODO : Playerの攻撃（とりあえず単発） 敵にダメージを入れられるように。敵HP0以下で削除
-// 右上から左下への袈裟斬り qauternionで回転させると楽だと思うが...
-// TODO : 敵の攻撃（とりあえず単発） Playerにダメージを入れられるように。PlayerHP0以下でゲームオーバー
-
 void Player::Rotation()
 {
-    model_->rotate_ = Slerp(model_->rotate_, targetQuaternion_, 0.1f);
+    model_->rotate_ = Slerp(model_->rotate_, targetQuaternion_, 0.3f);
 }
 
 void Player::Attack()

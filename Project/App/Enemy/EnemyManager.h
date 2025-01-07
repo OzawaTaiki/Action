@@ -30,6 +30,9 @@ private:
     const int enemySpawnNum_ = 3;
     int spawnCount_ = 0;
 
+    std::array<uint32_t, 3> phaseSpawnNum_ = { 10,20,25 };
+
+
     std::list<std::unique_ptr<Enemy>> enemies_ = {};
     std::string enemyModelPath_ = "enemy/enemy.gltf";
 

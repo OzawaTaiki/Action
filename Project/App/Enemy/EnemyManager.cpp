@@ -5,7 +5,6 @@
 #include "Enemy.h"
 
 
-
 EnemyManager* EnemyManager::GetInstance()
 {
     static EnemyManager instance;
@@ -14,8 +13,8 @@ EnemyManager* EnemyManager::GetInstance()
 
 void EnemyManager::Initialize()
 {
-    spawnRange_.x = 3.0f;
-    spawnRange_.y = 5.0f;
+    spawnRange_.x = 8.0f;
+    spawnRange_.y = 13.0f;
 
     Model* model = new Model();
     model->CreateFromObj(enemyModelPath_);
@@ -29,6 +28,11 @@ void EnemyManager::Update()
 #ifdef _DEBUG
     ImGui();
 #endif // _DEBUG
+
+    if (enemies_.size() < 5)
+    {
+        SpawnEnemy(phaseSpawnNum_[spawnCount_]);
+    }
 
     for (auto it = enemies_.begin(); it != enemies_.end();)
     {
@@ -101,10 +105,11 @@ void EnemyManager::SpawnEnemy(const uint32_t _spawnNum)
 bool EnemyManager::Clear()
 {
     if (enemySpawnNum_ <= spawnCount_ && enemies_.empty())
-        return true;        
+        return true;
     return false;
 }
 
+#ifdef _DEBUG
 void EnemyManager::ImGui()
 {
 #ifdef _DEBUG
@@ -138,4 +143,5 @@ void EnemyManager::ImGui()
 
 #endif // _DEBUG
 }
+#endif // _DEBUG
 
