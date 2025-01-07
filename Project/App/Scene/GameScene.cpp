@@ -39,9 +39,9 @@ void GameScene::Initialize()
     followCamera_->Initialize({ 0,2.0f,-20 });
     followCamera_->SetPlayer(pPlayer_.get());
 
-    pEnemy_ = std::make_unique<Enemy>();
-    pEnemy_->Initialize();
-    pEnemy_->SetPlayerPosition(pPlayer_->GetWorldTransform());
+    pEnemyManager_ = EnemyManager::GetInstance();
+    pEnemyManager_->Initialize();
+    pEnemyManager_->SetPlayerPosition(pPlayer_->GetWorldTransform());
 
 
 #pragma endregion
@@ -63,7 +63,7 @@ void GameScene::Update()
 
     followCamera_->Update();
     pPlayer_->Update(followCamera_->GetRotation());
-    pEnemy_->Update();
+    pEnemyManager_->Update();
 
     if (enableDebugCamera_)
     {
@@ -87,7 +87,7 @@ void GameScene::Draw()
     plane_->Draw(&SceneCamera_, { 1,1,1,1 });
 
     pPlayer_->Draw(&SceneCamera_);
-    pEnemy_->Draw(&SceneCamera_);
+    pEnemyManager_->Draw(&SceneCamera_);
 
 //-------------------------------------------------------------------------
     ModelManager::GetInstance()->PreDrawForAnimationModel();

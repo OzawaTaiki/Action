@@ -9,6 +9,7 @@ Enemy::Enemy()
 
 void Enemy::Initialize()
 {
+    isAlive_ = true;
 
     std::string enemyName = "Enemy_" + std::to_string(enemyID_);
     jsonBinder_ = std::make_unique<JsonBinder>(enemyName, "Resources/Data/Parameter/");
@@ -34,7 +35,7 @@ void Enemy::Initialize()
 void Enemy::Update()
 {
 #ifdef _DEBUG
-    ImGui();
+    //ImGui();
 #endif // _DEBUG
 
     color_ = { 1,1,1,1 };
@@ -46,9 +47,10 @@ void Enemy::Update()
     f_currentState_();
 #endif
 
-    collider_->RegsterCollider();
+    if(isAlive_)
+        collider_->RegsterCollider();
 
-    model_->Update();
+    model_->Update(false);
 }
 
 void Enemy::Draw(const Camera* _camera)
@@ -105,8 +107,7 @@ void Enemy::ImGui()
 
 void Enemy::OnCollision(const Collider* _other)
 {
-     if (_other->GetName() == "Player"||
-        _other->GetName() == "Sword")
+    if (_other->GetName() == "Sword")
     {
         hp_ -= 1;
         color_ = { 1,0,0,1 };
@@ -114,6 +115,18 @@ void Enemy::OnCollision(const Collider* _other)
         {
             isAlive_ = false;
         }
+    }
+    else if (_other->GetName() == "Enemy")
+    {
+        uint32_t id = std::atoi(_other->GetId().c_str());
+        // 自分よりIDが小さい敵にぶつかったら無視
+        if (id < enemyID_)
+            return;
+
+        // ぶつかったら離れる
+        Vector3 direction = _other->GetWorldMatrix().GetTranslate() - model_->GetWorldTransform()->GetWorldPosition();
+        direction.y = 0;
+        model_->translate_ -= direction.Normalize() * moveSpeed_;
     }
 }
 
@@ -123,10 +136,11 @@ void Enemy::InitCollider()
     collider_->SetBoundingBox(Collider::BoundingBox::OBB_3D);
     collider_->SetShape(model_->GetMin(), model_->GetMax());
     collider_->SetAtrribute("Enemy");
-    collider_->SetMask("Enemy");
+    collider_->SetMask({ "Player" });
     collider_->SetGetWorldMatrixFunc([this]() {return model_->GetWorldTransform()->matWorld_; });
     collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
     collider_->SetReferencePoint({ 0,0,0 });
+    collider_->SetId(std::to_string(enemyID_));
 }
 
 void Enemy::Idle()

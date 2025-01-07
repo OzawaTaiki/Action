@@ -13,7 +13,7 @@
 #include <memory>
 
 #include <App/Player/Player.h>
-#include <App/Enemy/Enemy.h>
+#include <App/Enemy/EnemyManager.h>
 #include <App/Camera/FllowCamera.h>
 
 
@@ -45,7 +45,7 @@ private:
 
     std::unique_ptr<Player> pPlayer_;
     std::unique_ptr<FollowCamera> followCamera_ = nullptr;
-    std::unique_ptr<Enemy> pEnemy_ = nullptr;
+    EnemyManager* pEnemyManager_ = nullptr;
 
 
 
