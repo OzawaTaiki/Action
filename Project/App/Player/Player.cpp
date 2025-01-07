@@ -41,6 +41,9 @@ void Player::Initialize()
     // それを武器の親にする
     weapon_->SetParent(&rightArm_);
 
+    circleShadow_ = std::make_unique<CircleShadow>();
+    circleShadow_->Initialize(model_->GetWorldTransform());
+
 }
 
 void Player::Update(const Vector3& _cameraroate)
@@ -68,6 +71,8 @@ void Player::Update(const Vector3& _cameraroate)
 void Player::Draw(const Camera* _camera)
 {
     model_->Draw(_camera, { 1,1,1,1 });
+
+    circleShadow_->Draw(_camera);
 
     weapon_->Draw(_camera);
 #ifdef _DEBUG

@@ -11,7 +11,7 @@ void Enemy::Initialize()
 {
     isAlive_ = true;
 
-    std::string enemyName = "Enemy_" + std::to_string(enemyID_);
+    std::string enemyName = "Enemy";
     jsonBinder_ = std::make_unique<JsonBinder>(enemyName, "Resources/Data/Parameter/");
 
     jsonBinder_->RegisterVariable("hp", &hp_);
@@ -29,6 +29,11 @@ void Enemy::Initialize()
     InitCollider();
 
     f_currentState_ = [this]() {ChasePlayer(); };
+
+    circleShadow_ = std::make_unique<CircleShadow>();
+    circleShadow_->Initialize(model_->GetWorldTransform());
+    circleShadow_->SetScale({ .5f,0.00001f,.5f });
+
 
 }
 
@@ -56,6 +61,8 @@ void Enemy::Update()
 void Enemy::Draw(const Camera* _camera)
 {
     model_->Draw(_camera, color_);
+
+    circleShadow_->Draw(_camera);
 
 #ifdef _DEBUG
     if (gui_drawCollider_)

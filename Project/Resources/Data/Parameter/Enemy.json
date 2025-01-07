@@ -1,5 +1,5 @@
 {
-    "Enemy_0": {
+    "Enemy": {
         "ChaseEndDistance": 1.5,
         "ModelPath": "Enemy/Enemy.gltf",
         "MoveSpeed": 0.05000000074505806,
