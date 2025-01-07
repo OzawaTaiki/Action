@@ -21,8 +21,13 @@ public:
 
     void SpawnEnemy(const uint32_t _spawnNum);
 
+    bool Clear();
+
 
 private:
+
+    const int enemySpawnNum_ = 3;
+    int spawnCount_ = 0;
 
     std::list<std::unique_ptr<Enemy>> enemies_ = {};
     std::string enemyModelPath_ = "enemy/enemy.gltf";

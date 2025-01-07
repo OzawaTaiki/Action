@@ -98,6 +98,8 @@
     <ClCompile Include="App\Enemy\Enemy.cpp" />
     <ClCompile Include="App\Enemy\EnemyManager.cpp" />
     <ClCompile Include="App\Player\Player.cpp" />
+    <ClCompile Include="App\Scene\ClearScene.cpp" />
+    <ClCompile Include="App\Scene\GameOverScene.cpp" />
     <ClCompile Include="App\Scene\GameScene.cpp" />
     <ClCompile Include="App\Scene\TitleScene.cpp" />
     <ClCompile Include="App\Weapon\Sword.cpp" />
@@ -117,6 +119,8 @@
     <ClInclude Include="App\Enemy\Enemy.h" />
     <ClInclude Include="App\Enemy\EnemyManager.h" />
     <ClInclude Include="App\Player\Player.h" />
+    <ClInclude Include="App\Scene\ClearScene.h" />
+    <ClInclude Include="App\Scene\GameOverScene.h" />
     <ClInclude Include="App\Scene\GameScene.h" />
     <ClInclude Include="App\Scene\TitleScene.h" />
     <ClInclude Include="App\Weapon\IWeapon.h" />

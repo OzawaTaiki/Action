@@ -66,6 +66,12 @@
     <ClCompile Include="App\Scene\TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="App\Scene\ClearScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Scene\GameOverScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\Player\Player.h">
@@ -96,6 +102,12 @@
       <Filter>CircleShadow</Filter>
     </ClInclude>
     <ClInclude Include="App\Scene\TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\GameOverScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\ClearScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>

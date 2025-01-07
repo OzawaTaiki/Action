@@ -26,7 +26,9 @@ public:
     void Update(const Vector3& _cameraroate);
     void Draw(const Camera* _camera);
 
-    void OnCollision(const Collider* _other) {}
+    void OnCollision(const Collider* _other);
+
+    bool IsAlive()const { return isAlive_; }
 
     const WorldTransform* GetWorldTransform() { return model_->GetWorldTransform(); }
     Vector3 GetPosition() { return model_->GetWorldTransform()->GetWorldPosition(); }
@@ -81,6 +83,10 @@ private:
 #pragma endregion / Attack End
 
     std::unique_ptr<CircleShadow> circleShadow_ = nullptr;
+
+    float maxHP_ = 100.0f;
+    float hp_ = 0.0f;
+    bool isAlive_ = true;
 
 
     std::unique_ptr<JsonBinder> jsonBinder_ = nullptr;

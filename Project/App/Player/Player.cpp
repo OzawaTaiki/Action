@@ -44,6 +44,9 @@ void Player::Initialize()
     circleShadow_ = std::make_unique<CircleShadow>();
     circleShadow_->Initialize(model_->GetWorldTransform());
 
+    hp_ = maxHP_;
+    isAlive_ = true;
+
 }
 
 void Player::Update(const Vector3& _cameraroate)
@@ -80,6 +83,15 @@ void Player::Draw(const Camera* _camera)
         collider_->Draw();
 #endif // _DEBUG
 
+}
+
+void Player::OnCollision(const Collider* _other)
+{
+    if (_other->GetName() == "Enemy")
+    {
+        if (hp_-- <= 0)
+            isAlive_ = false;
+    }
 }
 
 void Player::UpdateRightArmTrans()
