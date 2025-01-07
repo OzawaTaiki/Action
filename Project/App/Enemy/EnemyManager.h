@@ -27,10 +27,10 @@ public:
 
 private:
 
-    const int enemySpawnNum_ = 3;
+    const int enemySpawnNum_ = 2;
     int spawnCount_ = 0;
 
-    std::array<uint32_t, 3> phaseSpawnNum_ = { 10,20,25 };
+    std::array<uint32_t, 2> phaseSpawnNum_ = { 10,20 };
 
 
     std::list<std::unique_ptr<Enemy>> enemies_ = {};

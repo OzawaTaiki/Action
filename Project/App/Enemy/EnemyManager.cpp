@@ -31,7 +31,8 @@ void EnemyManager::Update()
 
     if (enemies_.size() < 5)
     {
-        SpawnEnemy(phaseSpawnNum_[spawnCount_]);
+        if (phaseSpawnNum_.size() != spawnCount_)
+            SpawnEnemy(phaseSpawnNum_[spawnCount_]);
     }
 
     for (auto it = enemies_.begin(); it != enemies_.end();)

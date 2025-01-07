@@ -32,6 +32,8 @@ void Sword::Initialize()
     collider_->SetGetWorldMatrixFunc([this]() {return  model_->GetWorldTransform()->matWorld_; });
     collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
 
+    model_->rotate_ = Quaternion::MakeRotateAxisAngleQuaternion({ 1,0,0 }, 1.57f);
+
 
     //Vector3 axis = Vector3{ -1,1,0 }.Normalize();
     //attackParams_["attack_01"] = {
@@ -142,6 +144,13 @@ void Sword::ImGui()
         ImGui::Checkbox("DrawCollider", &gui_drawCollider_);
         ImGui::InputText("ModelPath", modelName_, 256);
         ImGui::DragFloat3("Offset", &model_->translate_.x, 0.01f);
+        static Vector3 axis = { 0,1,0 };
+        static float angle = 0;
+        ImGui::DragFloat3("RotateAxis", &axis.x, 0.01f);
+        ImGui::DragFloat("RotateAngle", &angle, 0.01f);
+
+        model_->rotate_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
+
         if (ImGui::Button("kesagiri"))
         {
             model_->SetAnimation("kesagiri", false);
@@ -150,8 +159,6 @@ void Sword::ImGui()
         if (ImGui::Button("Init"))
             Initialize();
 
-        static Vector3 axis = { 0,1,0 };
-        static float angle = 0;
         /*
         if(ImGui::DragFloat4("RotateAxis", &axis.x, 0.01f))
             model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
