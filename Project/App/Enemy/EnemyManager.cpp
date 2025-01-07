@@ -50,6 +50,14 @@ void EnemyManager::Draw(const Camera* _camera)
     }
 }
 
+void EnemyManager::DrawFront(const Camera* _camera)
+{
+    for (auto& enemy : enemies_)
+    {
+        enemy->DrawFront(_camera);
+    }
+}
+
 void EnemyManager::SpawnEnemy(const uint32_t _spawnNum)
 {
     if (enemySpawnNum_ < spawnCount_++)

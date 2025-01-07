@@ -36,6 +36,9 @@ void Enemy::Initialize()
     circleShadow_->Initialize(model_->GetWorldTransform());
     circleShadow_->SetScale({ .5f,0.00001f,.5f });
 
+    HPUI_ = std::make_unique<EnemyHPUI>();
+    HPUI_->Initialize(maxHP_, { 1,0,0,1 }, { 0,0,0,1 }, model_->GetWorldTransform(), &hp_);
+
 
 }
 
@@ -66,10 +69,16 @@ void Enemy::Draw(const Camera* _camera)
 
     circleShadow_->Draw(_camera);
 
+
 #ifdef _DEBUG
     if (gui_drawCollider_)
         collider_->Draw();
 #endif // _DEBUG
+}
+
+void Enemy::DrawFront(const Camera* _camera)
+{
+    HPUI_->Draw(_camera);
 }
 
 void Enemy::ImGui()

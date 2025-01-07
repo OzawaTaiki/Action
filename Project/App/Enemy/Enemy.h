@@ -1,9 +1,11 @@
 #pragma once
 
 #include "BaseEnemy.h"
+#include "EnemyHPUI.h"
 #include <Systems/JsonBinder/JsonBinder.h>
 #include <App/CircleShadow/CircleShadow.h>
 #include <memory>
+
 class Enemy : public BaseEnemy
 {
 public:
@@ -13,6 +15,7 @@ public:
     void Initialize() override;
     void Update() override;
     void Draw(const Camera* _camera) override;
+    void DrawFront(const Camera* _camera);
 
     void SetPosition(const Vector3& _pos) { model_->translate_ = _pos; }
 
@@ -48,6 +51,7 @@ private:
     float targetAngle_ = 0.0f;
 
     std::unique_ptr<CircleShadow> circleShadow_ = nullptr;
+    std::unique_ptr<EnemyHPUI> HPUI_ = nullptr;
 
     std::unique_ptr<JsonBinder> jsonBinder_;
     std::string modelPath_ = "enemy/enemy.gltf";
