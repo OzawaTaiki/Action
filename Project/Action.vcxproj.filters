@@ -48,6 +48,9 @@
     <ClCompile Include="App\Weapon\Sword.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="App\Enemy\EnemyManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\Player\Player.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="App\Weapon\Sword.h">
       <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Enemy\EnemyManager.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,10 +11,11 @@ class BaseEnemy
 public:
 
     BaseEnemy() = default;
-    virtual ~BaseEnemy() = default;
+    virtual ~BaseEnemy() {};
     virtual void Initialize() = 0;
     virtual void Update() = 0;
     virtual void Draw(const Camera* _camera) = 0;
+
 
     bool IsAlive()const { return isAlive_; }
 
