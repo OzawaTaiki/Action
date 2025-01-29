@@ -104,6 +104,9 @@ void Player::UpdateRightArmTrans()
 
 void Player::Move(const Matrix4x4& _cameraRotMat)
 {
+    if (nAttacking_)
+        return;
+
     Input::GetInstance()->GetMove(move_, moveSpeed_);
 
     // 移動がない場合コントローラー
@@ -264,6 +267,7 @@ void Player::nAttack()
         nChainCombo = true;
     }
 
+    weapon_->RegsitCollider();
 
 }
 
