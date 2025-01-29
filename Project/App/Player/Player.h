@@ -39,6 +39,7 @@ private:
     void Move(const Matrix4x4& _cameraRotMat);
     void Rotation();
     void Attack();
+    void nAttack();
 
     void Idle();
 
@@ -71,6 +72,13 @@ private:
     // canCommbo
     //
 
+    bool nTrigger_ = false;
+    bool nAttacking_ = false;
+    bool nEndAttack_ = false;
+
+    bool nChainCombo = false;
+
+    
     bool isTrigger_ = false;    // 攻撃ボタンが押されたかどうか
     bool isAttacking_ = false;  // 攻撃中かどうか
     bool canCommbo_ = false;    // コンボ可能かどうか

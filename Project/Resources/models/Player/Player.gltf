@@ -153,7 +153,7 @@
 			"samplers":[
 				{
 					"input":7,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":8
 				},
 				{
@@ -163,7 +163,7 @@
 				},
 				{
 					"input":7,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":11
 				},
 				{
@@ -178,7 +178,7 @@
 				},
 				{
 					"input":7,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":14
 				},
 				{
@@ -268,7 +268,7 @@
 			"samplers":[
 				{
 					"input":7,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":18
 				},
 				{
@@ -278,7 +278,7 @@
 				},
 				{
 					"input":7,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":20
 				},
 				{
@@ -383,7 +383,7 @@
 			"samplers":[
 				{
 					"input":27,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":28
 				},
 				{
