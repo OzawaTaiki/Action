@@ -196,6 +196,77 @@ void Player::Attack()
 
 }
 
+void Player::nAttack()
+{
+    // 既に攻撃状態
+
+
+
+    // 攻撃アニメーションが終わったら
+    if (!nTrigger_ && !nChainCombo && model_->IsAnimationEnd() ||
+        currentAttack_ >= attackNames_.size() && model_->IsIdle()
+        )
+    {
+        currentAttack_ = std::nullopt;
+
+        // 攻撃中ではなくする
+        nAttacking_ = false;
+        // 攻撃可能状態にする
+        canAttack_ = true;
+
+        nChainCombo = false;
+
+        // 待機状態に遷移
+        model_->ToIdle(0.75f);
+
+        f_currentState_ = std::bind(&Player::Idle, this);
+
+        return;
+    }
+
+    // 入力直後 アニメーションを再生する
+    if (nTrigger_)
+    {
+        // 最初の攻撃のとき
+        if (currentAttack_ == std::nullopt)
+        {
+            currentAttack_ = 0;
+            // アニメーションを再生する
+            model_->SetAnimation(attackNames_[*currentAttack_]);
+            // トリガーをおろす
+            nTrigger_ = false;
+        }
+    }
+
+    if (nChainCombo && model_->IsAnimationEnd())
+    {
+        // コンボを次に進める
+        *currentAttack_ = *currentAttack_ + 1;
+
+        // コンボが最大までいったら
+        if (currentAttack_ >= attackNames_.size())
+        {
+            // 攻撃中ではなくする
+            nAttacking_ = false;
+
+            return;
+        }
+
+        // アニメ―ションを再生する
+        model_->SetAnimation(attackNames_[*currentAttack_]);
+        // トリガーをおろす
+        nChainCombo = false;
+
+    }
+
+    if (Input::GetInstance()->IsKeyTriggered(DIK_SPACE))
+    {
+        nChainCombo = true;
+    }
+
+
+}
+
 void Player::Idle()
 {
     currentAttack_ = std::nullopt;
@@ -203,11 +274,15 @@ void Player::Idle()
     if (Input::GetInstance()->IsPadTriggered(PadButton::iPad_A) ||
         Input::GetInstance()->IsKeyTriggered(DIK_SPACE))
     {
+        // 攻撃可能なら攻撃状態に遷移
         if(canAttack_)
         {
-            f_currentState_ = std::bind(&Player::Attack, this);
+            f_currentState_ = std::bind(&Player::nAttack, this);
             isTrigger_ = true;
             isAttacking_ = true;
+
+            nAttacking_ = true;
+            nTrigger_ = true;
             return;
         }
     }
