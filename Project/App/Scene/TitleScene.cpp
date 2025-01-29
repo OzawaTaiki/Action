@@ -1,9 +1,9 @@
 #include "TitleScene.h"
-#include <Rendering/Model/ModelManager.h>
-#include <Rendering/Sprite/Sprite.h>
-#include <UI/ImGuiManager/ImGuiManager.h>
-#include <Framework/eScene/SceneManager.h>
-#include <ResourceManagement/TextureManager/TextureManager.h>
+#include <Features/Model/Manager/ModelManager.h>
+#include <Features/Sprite/Sprite.h>
+#include <Debug/ImGuiManager.h>
+#include <Features/Scene/Manager/SceneManager.h>
+#include <Core/DXCommon/TextureManager/TextureManager.h>
 
 
 std::unique_ptr<BaseScene>TitleScene::Create()

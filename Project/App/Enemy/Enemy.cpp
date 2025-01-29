@@ -60,7 +60,7 @@ void Enemy::Update()
     if(isAlive_)
         collider_->RegsterCollider();
 
-    model_->Update(false);
+    model_->Update();
 }
 
 void Enemy::Draw(const Camera* _camera)
@@ -201,5 +201,5 @@ void Enemy::Rotation()
     Vector3 direction = playerPosition - model_->GetWorldTransform()->GetWorldPosition();;
     direction.y = 0;
     float angle = atan2(direction.x, direction.z);
-    model_->rotate_.y = angle;
+    model_->euler_.y = angle;
 }

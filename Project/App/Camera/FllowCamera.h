@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Physics/Math/Vector3.h>
-#include <Physics/Math/Matrix4x4.h>
-#include <Framework/Camera/Camera.h>
-#include <Rendering/Model/WorldTransform.h>
+#include <Math/Vector/Vector3.h>
+#include <Math/Matrix/Matrix4x4.h>
+#include <Features/Camera/Camera/Camera.h>
+#include <Features/Model/Transform/WorldTransform.h>
 
 class Player;
 

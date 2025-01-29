@@ -1,9 +1,9 @@
 #include "GameScene.h"
-#include <Rendering/Model/ModelManager.h>
-#include <Rendering/Sprite/Sprite.h>
-#include <UI/ImGuiManager/ImGuiManager.h>
-#include <Framework/eScene/SceneManager.h>
-#include <Physics/Collision/CollisionManager.h>
+#include <Features/Model/Manager/ModelManager.h>
+#include <Features/Sprite/Sprite.h>
+#include <Debug/ImGuiManager.h>
+#include <Features/Scene/Manager/SceneManager.h>
+#include <Features/Collision/Manager/CollisionManager.h>
 
 std::unique_ptr<BaseScene>GameScene::Create()
 {
@@ -24,7 +24,7 @@ void GameScene::Initialize()
 
     plane_ = std::make_unique<ObjectModel>();
     plane_->Initialize("Tile/Tile.gltf", "Ground");
-    plane_->uvScale_ = { 100,100 };
+    plane_->GetUVTransform().SetScale(100, 100);
 
     lineDrawer_ = LineDrawer::GetInstance();
     lineDrawer_->Initialize();

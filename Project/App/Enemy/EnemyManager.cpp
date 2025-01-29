@@ -1,7 +1,7 @@
 #include "EnemyManager.h"
-#include <Systems/Utility/RandomGenerator.h>
-#include <Framework/Camera/Camera.h>
-#include <Rendering/Model/ModelManager.h>
+#include <Math/Random/RandomGenerator.h>
+#include <Features/Camera/Camera/Camera.h>
+#include <Features/Model/Manager/ModelManager.h>
 #include "Enemy.h"
 
 

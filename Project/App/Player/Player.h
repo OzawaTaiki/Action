@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Rendering/Model/ObjectModel.h>
-#include <Framework/Camera/Camera.h>
-#include <Systems/JsonBinder/JsonBinder.h>
-#include <Physics/Collision/Collider.h>
+#include <Features/Model/ObjectModel.h>
+#include <Features/Camera/Camera/Camera.h>
+#include <Features/Json/JsonBinder.h>
+#include <Features/Collision/Collider/Collider.h>
 
 #include <App/Weapon/Sword.h>
 #include <App/CircleShadow/CircleShadow.h>

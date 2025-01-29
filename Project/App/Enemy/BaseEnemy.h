@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Rendering/Model/ObjectModel.h>
-#include <Physics/Collision/Collider.h>
+#include <Features/Model/ObjectModel.h>
+#include <Features/Collision/Collider/Collider.h>
 
 #include <memory>
 

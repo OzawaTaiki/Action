@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Rendering/Model/ObjectModel.h>
+#include <Features/Model/ObjectModel.h>
 
 class CircleShadow
 {

@@ -31,6 +31,15 @@
     <Filter Include="CircleShadow">
       <UniqueIdentifier>{4ce0929a-fc50-4017-93a9-81db94bed9d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Essential">
+      <UniqueIdentifier>{cb603a2b-7ae9-4bcf-a7a3-3e61efd46289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Essential\Framework">
+      <UniqueIdentifier>{6aa02764-a091-44d4-aaaa-27d1a858efaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Essential\SceneFactory">
+      <UniqueIdentifier>{4326f685-fe59-40a1-8fb0-67c103aa9302}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="App\Enemy\EnemyHPUI.cpp">
       <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Essential\Framework\SampleFramework.cpp">
+      <Filter>Essential\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Essential\SceneFactory\SceneFactory.cpp">
+      <Filter>Essential\SceneFactory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="App\Enemy\EnemyHPUI.h">
       <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Essential\Framework\SampleFramework.h">
+      <Filter>Essential\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Essential\SceneFactory\SceneFactory.h">
+      <Filter>Essential\SceneFactory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

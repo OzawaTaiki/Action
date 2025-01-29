@@ -1,8 +1,8 @@
 #include "Sword.h"
 #include <numbers>
-#include <Physics/Math/MyLib.h>
-#include <Systems/Time/Time.h>
-#include <Physics/Math/Easing.h>
+#include <Math/MyLib.h>
+#include <System/Time/Time.h>
+#include <Math/Easing.h>
 
 
 void Sword::Initialize()
@@ -32,7 +32,7 @@ void Sword::Initialize()
     collider_->SetGetWorldMatrixFunc([this]() {return  model_->GetWorldTransform()->matWorld_; });
     collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
 
-    model_->rotate_ = Quaternion::MakeRotateAxisAngleQuaternion({ 1,0,0 }, 1.57f);
+    model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion({ 1,0,0 }, 1.57f);
 
 
     //Vector3 axis = Vector3{ -1,1,0 }.Normalize();
@@ -149,7 +149,7 @@ void Sword::ImGui()
         ImGui::DragFloat3("RotateAxis", &axis.x, 0.01f);
         ImGui::DragFloat("RotateAngle", &angle, 0.01f);
 
-        model_->rotate_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
+        model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
 
         if (ImGui::Button("kesagiri"))
         {

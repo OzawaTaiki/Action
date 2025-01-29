@@ -1,8 +1,8 @@
 #include "Player.h"
-#include <Systems/Input/Input.h>
-#include <Physics/Math/MatrixFunction.h>
-#include <Physics/Math/VectorFunction.h>
-#include <Physics/Math/MyLib.h>
+#include <System/Input/Input.h>
+#include <Math/Matrix/MatrixFunction.h>
+#include <Math/Vector/VectorFunction.h>
+#include <Math/MyLib.h>
 
 
 void Player::Initialize()
@@ -17,6 +17,8 @@ void Player::Initialize()
 
     model_ = std::make_unique<AnimationModel>();
     model_->Initialize(modelPath_);
+
+    model_->useQuaternion_ = true;
 
     collider_ = std::make_unique<Collider>();
     collider_->SetBoundingBox(Collider::BoundingBox::OBB_3D);
@@ -134,7 +136,7 @@ void Player::Move(const Matrix4x4& _cameraRotMat)
 
 void Player::Rotation()
 {
-    model_->rotate_ = Slerp(model_->rotate_, targetQuaternion_, 0.3f);
+    model_->quaternion_ = Slerp(model_->quaternion_, targetQuaternion_, 0.3f);
 }
 
 void Player::Attack()

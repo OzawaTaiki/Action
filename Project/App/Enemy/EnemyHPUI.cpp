@@ -1,11 +1,11 @@
 #include "EnemyHPUI.h"
 
-#include <Physics/Math/MatrixFunction.h>
-#include <Physics/Math/VectorFunction.h>
+#include <Math/Matrix/MatrixFunction.h>
+#include <Math/Vector/VectorFunction.h>
 #include <Core/WinApp/WinApp.h>
-#include <ResourceManagement/TextureManager/TextureManager.h>
-#include <Framework/Camera/Camera.h>
-#include <Rendering/Model/WorldTransform.h>
+#include <Core/DXCommon/TextureManager/TextureManager.h>
+#include <Features/Camera/Camera/Camera.h>
+#include <Features/Model/Transform/WorldTransform.h>
 
 void EnemyHPUI::Initialize(float _maxHp, const Vector4& _barColor, const Vector4& _frameColor, const WorldTransform* _parent,const float* _hp)
 {

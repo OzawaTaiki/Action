@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Framework/eScene/BaseScene.h>
+#include <Features/Scene/Interface/BaseScene.h>
 
-#include <Framework/Camera/Camera.h>
-#include <Framework/Camera/DebugCamera.h>
-#include <Rendering/Model/ObjectModel.h>
-#include <Rendering/Sprite/Sprite.h>
-#include <Framework/Particle/ParticleManager.h>
-#include <Rendering/LineDrawer/LineDrawer.h>
-#include <Systems/Input/Input.h>
+#include <Features/Camera/Camera/Camera.h>
+#include <Features/Camera/DebugCamera/DebugCamera.h>
+#include <Features/Model/ObjectModel.h>
+#include <Features/Sprite/Sprite.h>
+#include <Features/Effect/Manager/ParticleManager.h>
+#include <Features/LineDrawer/LineDrawer.h>
+#include <System/Input/Input.h>
 
 #include <memory>
 

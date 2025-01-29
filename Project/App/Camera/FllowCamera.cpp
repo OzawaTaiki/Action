@@ -1,8 +1,8 @@
 #include "FllowCamera.h"
 #include "App/Player/Player.h"
-#include <Systems/Input/Input.h>
-#include <Physics/Math/MatrixFunction.h>
-#include <Physics/Math/VectorFunction.h>
+#include <System/Input/Input.h>
+#include <Math/Matrix/MatrixFunction.h>
+#include <Math/Vector/VectorFunction.h>
 
 #include <stdexcept>
 

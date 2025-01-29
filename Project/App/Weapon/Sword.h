@@ -1,11 +1,11 @@
 #pragma once
 
 #include <App/Weapon/IWeapon.h>
-#include <Rendering/Model/ObjectModel.h>
-#include <Rendering/Model/AnimationModel.h>
+#include <Features/Model/ObjectModel.h>
+#include <Features/Model/AnimationModel.h>
 
-#include <Physics/Collision/Collider.h>
-#include <Systems/JsonBinder/JsonBinder.h>
+#include <Features/Collision/Collider/Collider.h>
+#include <Features/Json/JsonBinder.h>
 
 #include <memory>
 #include <json.hpp>
