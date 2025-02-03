@@ -11,6 +11,7 @@ std::unique_ptr<BaseScene>GameScene::Create()
 }
 GameScene::~GameScene()
 {
+    ParticleManager::GetInstance()->ClearGroup();
 }
 
 void GameScene::Initialize()
@@ -92,8 +93,8 @@ void GameScene::Draw()
     ModelManager::GetInstance()->PreDrawForObjectModel();
     plane_->Draw(&SceneCamera_, { 1,1,1,1 });
 
-    pPlayer_->Draw(&SceneCamera_);
     pEnemyManager_->Draw(&SceneCamera_);
+    pPlayer_->Draw(&SceneCamera_);
 
 //-------------------------------------------------------------------------
     ModelManager::GetInstance()->PreDrawForAnimationModel();

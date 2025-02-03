@@ -1,0 +1,8 @@
+{
+    "SlashEffect_01": {
+        "emitters": [
+            "Sparks"
+        ],
+        "loop": 0
+    }
+}

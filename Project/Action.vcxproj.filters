@@ -40,6 +40,9 @@
     <Filter Include="Essential\SceneFactory">
       <UniqueIdentifier>{4326f685-fe59-40a1-8fb0-67c103aa9302}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{e336f2a1-bcc0-4ce4-b07e-137577066f84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="App\Essential\SceneFactory\SceneFactory.cpp">
       <Filter>Essential\SceneFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Effects\SlashEffect.cpp">
+      <Filter>Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="App\Essential\SceneFactory\SceneFactory.h">
       <Filter>Essential\SceneFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Effects\SlashEffect.h">
+      <Filter>Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

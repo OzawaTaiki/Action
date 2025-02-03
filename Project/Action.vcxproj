@@ -61,7 +61,9 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -96,6 +98,7 @@
   <ItemGroup>
     <ClCompile Include="App\Camera\FllowCamera.cpp" />
     <ClCompile Include="App\CircleShadow\CircleShadow.cpp" />
+    <ClCompile Include="App\Effects\SlashEffect.cpp" />
     <ClCompile Include="App\Enemy\Enemy.cpp" />
     <ClCompile Include="App\Enemy\EnemyHPUI.cpp" />
     <ClCompile Include="App\Enemy\EnemyManager.cpp" />
@@ -117,6 +120,7 @@
   <ItemGroup>
     <ClInclude Include="App\Camera\FllowCamera.h" />
     <ClInclude Include="App\CircleShadow\CircleShadow.h" />
+    <ClInclude Include="App\Effects\SlashEffect.h" />
     <ClInclude Include="App\Enemy\BaseEnemy.h" />
     <ClInclude Include="App\Enemy\Enemy.h" />
     <ClInclude Include="App\Enemy\EnemyHPUI.h" />

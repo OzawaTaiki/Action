@@ -34,37 +34,12 @@ void Sword::Initialize()
 
     model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion({ 1,0,0 }, 1.57f);
 
-
-    //Vector3 axis = Vector3{ -1,1,0 }.Normalize();
-    //attackParams_["attack_01"] = {
-    //    Quaternion::MakeRotateAxisAngleQuaternion(axis, 0),
-    //    Quaternion::MakeRotateAxisAngleQuaternion(axis, std::numbers::pi_v<float>),
-    //    0.4f,
-    //    0.15f,
-    //    0.2f,
-    //    static_cast<uint32_t>(Easing::EasingFunc::EaseOutExpo)
-    //};
-
-    //Quaternion q = attackParams_["attack_01"].endQuaternion;
-    //attackParams_["attack_02"] = {
-    //    q * Quaternion::MakeRotateAxisAngleQuaternion({1,0,0}, 0),
-    //    q * Quaternion::MakeRotateAxisAngleQuaternion({1,0,0}, std::numbers::pi_v<float>),
-    //    0.4f,
-    //    0.15f,
-    //    0.2f,
-    //    static_cast<uint32_t>(Easing::EasingFunc::EaseOutExpo)
-    //};
-
-    //Quaternion q2 = attackParams_["attack_02"].endQuaternion;
-    //attackParams_["attack_03"] = {
-    //    q2 * Quaternion::MakeRotateAxisAngleQuaternion({ 0,1,1 }, 0),
-    //    q2 * Quaternion::MakeRotateAxisAngleQuaternion({ 0,1,1 }, std::numbers::pi_v<float>),
-    //    0.4f,
-    //    0.15f,
-    //    0.2f,
-    //    static_cast<uint32_t>(Easing::EasingFunc::EaseOutExpo)
-    //};
-
+    for (auto& effect : slashEffect_)
+    {
+        effect = std::make_unique<SlashEffect>();
+        effect->Initialize();
+        effect->SetParentMatrix(model_->GetWorldTransform());
+    }
 }
 
 void Sword::Update()
@@ -73,50 +48,18 @@ void Sword::Update()
     ImGui();
 #endif // _DEBUG
 
-    //if (isActionActive_)
-    //{
-    //    elapsedTime += Time::GetDeltaTime<float>();
-    //    float t = elapsedTime / attackParams_[currentAction_].duration;
-    //    float easedT = Easing::SelectFuncPtr(attackParams_[currentAction_].easingType)(t);
-    //    auto param = attackParams_[currentAction_];
-    //    model_->rotate_ = Slerp(param.startQuaternion, param.endQuaternion, easedT);
-    //    if (t >= 1.0f)
-    //    {
-    //        elapsedTime = 0.0f;
-    //        isActionActive_ = false;
-    //        isWaitingForIdle_ = true;
-    //    }
-    //
-    //    model_->rotate_ = model_->rotate_.Normalize();
-    //}
-    //else if (!isIdle_)
-    //{
-    //    //elapsedTime += Time::GetDeltaTime<float>();
-    //    elapsedTime += 1.0f / 60.0f;
-    //    if (elapsedTime > attackParams_[currentAction_].timeToIdle ||
-    //        !isActionActive_ && !isWaitingForIdle_
-    //        )
-    //    {
-    //        if(isWaitingForIdle_)
-    //        {
-    //            isWaitingForIdle_ = false;
-    //            elapsedTime = 0.0f;
-    //        }
-    //
-    //        auto param = attackParams_[currentAction_];
-    //        float t = elapsedTime / attackParams_[currentAction_].toIdleDuration;
-    //        model_->rotate_ = Slerp(param.endQuaternion, Quaternion::Identity(), t);
-    //
-    //        if (t >= 1.0f)
-    //        {
-    //            elapsedTime = 0.0f;
-    //            isIdle_ = true;
-    //            model_->rotate_ = Quaternion::Identity();
-    //        }
-    //    }
-    //}
-
     //collider_->RegsterCollider();
+
+    for (size_t i = 0; i < slashEffect_.size(); ++i)
+    {
+        if (isSlashEffectActive_[i])
+            slashEffect_[i]->Update();
+
+        if (!slashEffect_[i]->IsActive())
+        {
+            isSlashEffectActive_[i] = false;
+        }
+    }
 
     model_->Update();
 }
@@ -124,6 +67,11 @@ void Sword::Update()
 void Sword::Draw(const Camera* _camera)
 {
     model_->Draw(_camera, { 1,1,1,1 });
+
+    for (auto& effect : slashEffect_)
+    {
+        effect->Draw(_camera);
+    }
 
 #ifdef _DEBUG
     if (isDrawCollider_||gui_drawCollider_)
@@ -151,33 +99,18 @@ void Sword::ImGui()
 
         model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
 
-        if (ImGui::Button("kesagiri"))
-        {
-            model_->SetAnimation("kesagiri", false);
-        }
-
         if (ImGui::Button("Init"))
             Initialize();
 
-        /*
-        if(ImGui::DragFloat4("RotateAxis", &axis.x, 0.01f))
-            model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
-        if (ImGui::DragFloat("RotateAngle", &angle, 0.01f))
-            model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);*/
-
-        /*static Vector3 kesaS = { 0,0,0 };
-        static Vector3 kesaE = { 0,0,0 };
-        static float kesaSAngle = 0;
-        static float kesaEAngle = 0;
-        if (ImGui::DragFloat3("KesagiriStart", &kesaS.x, 0.01f))
-            kesagiriStart_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
-        if (ImGui::DragFloat3("KesagiriEnd", &kesaE.x, 0.01f))
-            kesagiriEnd_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
-        if (ImGui::DragFloat("KesagiriStartAngle", &kesaSAngle, 0.01f))
-            kesagiriStart_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
-        if (ImGui::DragFloat("KesagiriEndAngle", &kesaEAngle, 0.01f))
-            kesagiriEnd_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
-            */
+        if (ImGui::TreeNode("SlashEffects"))
+        {
+            int count = 0;
+            for (auto& effect : slashEffect_)
+            {
+                ImGui::Text("SlashEffect_%d : %s", count++, effect->IsActive() ? "Active" : "inactive");
+            }
+            ImGui::TreePop();
+        }
 
 
         if (ImGui::Button("Set"))
@@ -193,13 +126,52 @@ void Sword::ImGui()
         ImGui::EndTabItem();
     }
     ImGui::EndTabBar();
+
+
+    if (ImGui::Button("SlashEffect"))
+    {
+        slashEffect_[0]->SetActive(1);
+        isSlashEffectActive_[0] = true;
+    }
+    static bool imLoop = false;
+    ImGui::Checkbox("Loop", &imLoop);
+    if (imLoop)
+    {
+        if (!isSlashEffectActive_[0])
+        {
+            slashEffect_[0]->SetActive(1);
+            isSlashEffectActive_[0] = true;
+        }
+    }
+
+
     ImGui::End();
 #endif // _DEBUG
+}
+
+void Sword::OnCollision(const Collider* _other)
+{
+    if (_other->GetName() == "Enemy")
+    {
+        if (collider_->IsCollisionEnter())
+        {
+            for (size_t i = 0; i < slashEffect_.size(); ++i)
+            {
+                if (!isSlashEffectActive_[i])
+                {
+                    slashEffect_[i]->SetActive(true);
+                    isSlashEffectActive_[i] = true;
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void Sword::RegsitCollider()
 {
     collider_->RegsterCollider();
+
 #ifdef _DEBUG
     isDrawCollider_ = true;
 #endif // _DEBUG
