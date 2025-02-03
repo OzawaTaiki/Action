@@ -7,6 +7,8 @@
 #include <Features/Collision/Collider/Collider.h>
 #include <Features/Json/JsonBinder.h>
 
+#include <App/Effects/SlashEffect.h>
+
 #include <memory>
 #include <json.hpp>
 
@@ -20,7 +22,7 @@ public:
     void Update() override;
     void Draw(const Camera* _camera) override;
     void ImGui() override;
-    void OnCollision(const Collider* _other) {}
+    void OnCollision(const Collider* _other);
 
     void SetParent(const WorldTransform* _parent) { model_->SetParent(_parent); }
     void RegsitCollider();
@@ -38,24 +40,14 @@ private:
 
     float elapsedTime = 0.0f;               // 経過時間
     bool isActionActive_ = false;           // 行動中か
-    bool isIdle_ = true;                  // Idle状態か
-    bool isWaitingForIdle_ = true; // Idle状態に戻るまで待機中か
+    bool isIdle_ = true;                    // Idle状態か
+    bool isWaitingForIdle_ = true;          // Idle状態に戻るまで待機中か
 
 
-    //struct AttackParameter
-    //{
-    //    Quaternion startQuaternion = Quaternion::Identity(); // 開始時のクォータニオン
-    //    Quaternion endQuaternion = Quaternion::Identity();   // 終了時のクォータニオン
 
-    //    float duration = 0.5f;         // 終わるまでの時間
-    //    float toIdleDuration = 0.3f; // Idleに戻るまでの時間
-    //    float timeToIdle = 0.2f; // 待機時間
+    std::array<std::unique_ptr<SlashEffect>, 32> slashEffect_;
+    std::array<bool, 32> isSlashEffectActive_ = { false };
 
-    //    uint32_t easingType = 0; // イージングタイプ
-
-    //    NLOHMANN_DEFINE_TYPE_INTRUSIVE(AttackParameter, startQuaternion, endQuaternion, duration, toIdleDuration)
-    //};
-    //std::map<std::string, AttackParameter> attackParams_ = {};
 
     std::string currentAction_ = "";
 

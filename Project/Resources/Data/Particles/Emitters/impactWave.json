@@ -1,164 +1,154 @@
 {
-    "impactWave": {
-        "acceleration_max": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "acceleration_min": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "changeColor": [
-            65536
-        ],
-        "changeSize": [
-            16777217
-        ],
-        "color_max": [
-            [
-                0.19117647409439087,
-                1.0,
-                0.9048442244529724,
-                1.0
-            ]
-        ],
-        "color_min": [
-            [
-                0.19117647409439087,
-                1.0,
-                0.9048442244529724,
-                1.0
-            ]
-        ],
-        "countPerEmit": [
-            1
-        ],
-        "delayTime": [
-            0.0
-        ],
-        "direction": [
-            2
-        ],
-        "direction_max": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "direction_min": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "emitPerSec": [
-            1
-        ],
-        "emitRepeatCount": [
-            1
-        ],
-        "fadeAlpha": [
-            257
-        ],
-        "fadeStartRatio": [
-            0.0
-        ],
-        "lifeTime_max": [
-            0.699999988079071
-        ],
-        "lifeTime_min": [
-            0.699999988079071
-        ],
-        "loop": [
-            65792
-        ],
-        "maxParticles": [
-            0
-        ],
-        "modelPath": [
-            ""
-        ],
-        "offset": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "position": [
-            [
-                0.0,
-                2.0,
-                0.0
-            ]
-        ],
-        "radius": [
-            0.019999999552965164
-        ],
-        "rotate": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "rotate_max": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "rotate_min": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "shape": [
-            1
-        ],
-        "size": [
-            [
-                1.0,
-                1.0,
-                1.0
-            ]
-        ],
-        "size_max": [
-            [
-                1.0,
-                1.0,
-                1.0
-            ]
-        ],
-        "size_min": [
-            [
-                0.0,
-                0.0,
-                0.0
-            ]
-        ],
-        "spped_max": [
-            0.0
-        ],
-        "spped_min": [
-            0.0
-        ],
-        "texturePath": [
-            "particle/donuts.png"
-        ],
-        "useBillboard": [
-            1
-        ]
+    "ImpactWave": {
+        "EnableLengthScaling": 0,
+        "LengthScaling": 0,
+        "acceleration": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "acceleration_fixed": 1,
+        "acceleration_max": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "acceleration_min": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "acceleration_random": 256,
+        "alphaTransition": {
+            "isChange": false,
+            "keys": []
+        },
+        "billBoardAxes": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "color": {
+            "w": 1.0,
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "colorTransition": {
+            "isChange": false,
+            "keys": []
+        },
+        "color_fixed": 1,
+        "color_max": {
+            "w": 0.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "color_min": {
+            "w": 0.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "color_random": 256,
+        "countPerEmit": 1,
+        "delayTime": 0.0,
+        "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "direction_fixed": 1,
+        "direction_max": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "direction_min": {
+            "x": -1.0,
+            "y": -1.0,
+            "z": -1.0
+        },
+        "direction_random": 256,
+        "duration": 1.0,
+        "emitDirection": 2,
+        "emitPerSec": 1,
+        "emitRepeatCount": 1,
+        "isInfiniteLife": 0,
+        "lengthScaling": 2.0,
+        "lifeTime": 1.0,
+        "lifeTime_fixed": 1,
+        "lifeTime_max": 1.0,
+        "lifeTime_min": 1.0,
+        "lifeTime_random": 256,
+        "loop": 0,
+        "maxParticles": 0,
+        "modelPath": "plane/plane.gltf",
+        "offset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "radius": 0.10000000149011612,
+        "rotate": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "rotateTransition": {
+            "isChange": false,
+            "keys": []
+        },
+        "rotate_fixed": 1,
+        "rotate_max": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "rotate_min": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "rotate_random": 256,
+        "shape": 1,
+        "size": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "sizeTransition": {
+            "isChange": false,
+            "keys": []
+        },
+        "size_fixed": 1,
+        "size_max": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "size_min": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "size_random": 256,
+        "speed": 0.0,
+        "speedTransition": {
+            "isChange": false,
+            "keys": []
+        },
+        "spped_fixed": 1,
+        "spped_max": 1.0,
+        "spped_min": 0.0,
+        "spped_random": 256,
+        "texturePath": "particle/circle.png",
+        "useBillboard": 0
     }
 }
