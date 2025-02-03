@@ -35,9 +35,9 @@
             ]
         },
         "billBoardAxes": {
-            "x": 0.0,
+            "x": 1.0,
             "y": 0.0,
-            "z": 0.0
+            "z": 1.0
         },
         "color": {
             "w": 1.0,
@@ -103,7 +103,7 @@
         "lifeTime_max": 0.30000001192092896,
         "lifeTime_min": 0.30000001192092896,
         "lifeTime_random": 256,
-        "loop": 65536,
+        "loop": 65792,
         "maxParticles": 0,
         "modelPath": "plane/plane.gltf",
         "offset": {
@@ -181,6 +181,6 @@
         "spped_min": 5.980000019073486,
         "spped_random": 256,
         "texturePath": "particle/circle.png",
-        "useBillboard": 486539520
+        "useBillboard": 486539521
     }
 }
