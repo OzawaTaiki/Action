@@ -40,6 +40,7 @@ void Sword::Initialize()
         effect->Initialize();
         effect->SetParentMatrix(model_->GetWorldTransform());
     }
+
 }
 
 void Sword::Update()
@@ -98,9 +99,6 @@ void Sword::ImGui()
         ImGui::DragFloat("RotateAngle", &angle, 0.01f);
 
         model_->quaternion_ = Quaternion::MakeRotateAxisAngleQuaternion(axis, angle);
-
-        if (ImGui::Button("Init"))
-            Initialize();
 
         if (ImGui::TreeNode("SlashEffects"))
         {
@@ -161,6 +159,8 @@ void Sword::OnCollision(const Collider* _other)
                 {
                     slashEffect_[i]->SetActive(true);
                     isSlashEffectActive_[i] = true;
+                    if (*currentCombo_ != std::nullopt && *currentCombo_ == 2)
+                        GameTime::GetChannel("default").ApplyHitStop(0.2f);
                     break;
                 }
             }

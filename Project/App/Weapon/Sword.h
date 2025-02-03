@@ -10,6 +10,7 @@
 #include <App/Effects/SlashEffect.h>
 
 #include <memory>
+#include <optional>
 #include <json.hpp>
 
 class Sword : public BaseWeapon
@@ -31,6 +32,8 @@ public:
     bool CanAttack() const { return isWaitingForIdle_ || isIdle_; }
     bool IsIdle()const { return isIdle_;  }
 
+    void SetCurrentCombo(std::optional<int32_t>* _currentCombo) { currentCombo_ = _currentCombo; }
+
 #ifdef _DEBUG
     void SetDrawCollider(bool _draw) { gui_drawCollider_ = _draw; }
 #endif // _DEBUG
@@ -43,6 +46,7 @@ private:
     bool isIdle_ = true;                    // Idle状態か
     bool isWaitingForIdle_ = true;          // Idle状態に戻るまで待機中か
 
+    std::optional<int32_t>* currentCombo_ ;             // 現在のコンボ数
 
 
     std::array<std::unique_ptr<SlashEffect>, 32> slashEffect_;

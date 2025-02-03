@@ -31,6 +31,7 @@ void Player::Initialize()
 
     weapon_ = std::make_unique<Sword>();
     weapon_->Initialize();
+    weapon_->SetCurrentCombo(&currentAttack_);
     //weapon_->SetParent(model_->GetWorldTransform());
 
     f_currentState_ = std::bind(&Player::Idle, this);
@@ -262,7 +263,8 @@ void Player::nAttack()
 
     }
 
-    if (Input::GetInstance()->IsKeyTriggered(DIK_SPACE))
+    if (Input::GetInstance()->IsPadTriggered(PadButton::iPad_A) ||
+        Input::GetInstance()->IsKeyTriggered(DIK_SPACE))
     {
         nChainCombo = true;
     }

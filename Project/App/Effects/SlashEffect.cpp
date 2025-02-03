@@ -10,6 +10,8 @@ void SlashEffect::Initialize()
 
     slashEffect_.Initialize("SlashEffect_01");
 
+    slashEffect_.SetTimeChannel("Effects");
+
     RingInit();
 
 }
