@@ -108,6 +108,7 @@
     <ClCompile Include="App\Scene\ClearScene.cpp" />
     <ClCompile Include="App\Scene\GameOverScene.cpp" />
     <ClCompile Include="App\Scene\GameScene.cpp" />
+    <ClCompile Include="App\Scene\SceneTransition.cpp" />
     <ClCompile Include="App\Scene\TitleScene.cpp" />
     <ClCompile Include="App\Weapon\Sword.cpp" />
     <ClCompile Include="main.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="App\Scene\ClearScene.h" />
     <ClInclude Include="App\Scene\GameOverScene.h" />
     <ClInclude Include="App\Scene\GameScene.h" />
+    <ClInclude Include="App\Scene\SceneTransition.h" />
     <ClInclude Include="App\Scene\TitleScene.h" />
     <ClInclude Include="App\Weapon\IWeapon.h" />
     <ClInclude Include="App\Weapon\Sword.h" />

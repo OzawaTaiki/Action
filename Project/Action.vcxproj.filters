@@ -90,6 +90,9 @@
     <ClCompile Include="App\Effects\SlashEffect.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
+    <ClCompile Include="App\Scene\SceneTransition.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\Player\Player.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="App\Effects\SlashEffect.h">
       <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\SceneTransition.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

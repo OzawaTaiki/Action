@@ -3,6 +3,7 @@
 #include "SampleScene.h"
 #include <Features/Scene/ParticleTestScene.h>
 #include <App/Essential/SceneFactory/SceneFactory.h>
+#include <App/Scene/SceneTransition.h>
 
 void SampleFramework::Initialize()
 {
@@ -16,6 +17,8 @@ void SampleFramework::Initialize()
 
     // 最初のシーンで初期化
     sceneManager_->Initialize("Title");
+
+    sceneManager_->SetTransition(std::make_unique<SceneTransition>());
 }
 
 void SampleFramework::Update()
