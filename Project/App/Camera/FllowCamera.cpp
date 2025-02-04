@@ -48,6 +48,11 @@ void FollowCamera::Rotate()
     // 取得した値をPlayerを基準に回転させる
     camera_.rotate_.y += padRightStick.x * rotationSpeed_; // 左右
     camera_.rotate_.x -= padRightStick.y * rotationSpeed_; // 上下
+    // 10~75度
+    constexpr float kAngleMin = 10.0f * (std::numbers::pi_v<float> / 180.0f);
+    constexpr float kAngleMax = 75.0f * (std::numbers::pi_v<float> / 180.0f);
+
+    camera_.rotate_.x = std::clamp(camera_.rotate_.x, kAngleMin, kAngleMax);
 
     Matrix4x4 rotMat = MakeRotateMatrix(camera_.rotate_);
     Vector3 offset = TransformNormal(offsetPos_, rotMat);
