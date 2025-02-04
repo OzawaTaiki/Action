@@ -59,20 +59,22 @@ void Player::Update()
     ImGui();
 #endif // _DEBUG
 
-
-    Matrix4x4 cameraRotMat = MakeRotateMatrix(camera_->rotate_);
-    Move(cameraRotMat);
+    if(camera_)
+    {
+        Matrix4x4 cameraRotMat = MakeRotateMatrix(camera_->rotate_);
+        Move(cameraRotMat);
+    }
 
     f_currentState_();
 
     Rotation();
 
     collider_->RegsterCollider();
+    UpdateRightArmTrans();
 
     model_->Update();
     weapon_->Update();
 
-    UpdateRightArmTrans();
 
     if(isDamage)
     {

@@ -1,0 +1,28 @@
+{
+    "PressText": {
+        "PressText_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "PressText_color": {
+            "w": 1.0,
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "PressText_directoryPath": "Resources/images/",
+        "PressText_isActive": 257,
+        "PressText_isVisible": 67108865,
+        "PressText_label": "PressText",
+        "PressText_pos": {
+            "x": 640.0,
+            "y": 539.0
+        },
+        "PressText_rotate": 0.0,
+        "PressText_size": {
+            "x": 457.0,
+            "y": 161.0
+        },
+        "PressText_textureName": "PressText.png"
+    }
+}

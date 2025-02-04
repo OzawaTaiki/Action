@@ -138,8 +138,8 @@ void Sword::ImGui()
             isSlashEffectActive_[0] = true;
         }
     }
-
-    camera_->ShakeParametaerSettingFromImGui();
+    if(camera_)
+        camera_->ShakeParametaerSettingFromImGui();
 
     ImGui::End();
 #endif // _DEBUG

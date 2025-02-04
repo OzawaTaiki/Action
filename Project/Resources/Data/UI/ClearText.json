@@ -1,0 +1,28 @@
+{
+    "ClearText": {
+        "ClearText_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "ClearText_color": {
+            "w": 1.0,
+            "x": 0.9950980544090271,
+            "y": 0.7024221420288086,
+            "z": 0.0
+        },
+        "ClearText_directoryPath": "Resources/images/",
+        "ClearText_isActive": 257,
+        "ClearText_isVisible": 167772161,
+        "ClearText_label": "ClearText",
+        "ClearText_pos": {
+            "x": 640.0,
+            "y": 300.0
+        },
+        "ClearText_rotate": 0.0,
+        "ClearText_size": {
+            "x": 320.0,
+            "y": 160.0
+        },
+        "ClearText_textureName": "ClearText.png"
+    }
+}

@@ -27,6 +27,12 @@ public:
 
 private:
 
+    bool ClearCheak();
+    bool clearFlag_ = false;
+
+    float slowTime_ = 3.0f;
+    float slowTimeCount_ = 0.0f;
+
     const int enemySpawnNum_ = 3;
     int spawnCount_ = 0;
 

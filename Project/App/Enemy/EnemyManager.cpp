@@ -21,6 +21,7 @@ void EnemyManager::Initialize()
     delete model;
 
     spawnCount_ = 0;
+    clearFlag_ = false;
 }
 
 void EnemyManager::Update()
@@ -105,9 +106,27 @@ void EnemyManager::SpawnEnemy(const uint32_t _spawnNum)
 
 bool EnemyManager::Clear()
 {
+    return ClearCheak();
+}
+
+bool EnemyManager::ClearCheak()
+{
     if (enemySpawnNum_ <= spawnCount_ && enemies_.empty())
-        return true;
+    {
+        GameTime::GetChannel("default").SetGameSpeed(.3f);
+        GameTime::GetChannel("Effects").SetGameSpeed(.3f);
+        slowTimeCount_ += GameTime::GetChannel("default").GetDeltaTime<float>();
+
+        if (slowTimeCount_ >= slowTime_)
+        {
+            GameTime::GetChannel("default").SetGameSpeed(1.0f);
+            slowTimeCount_ = 0;
+            return true;
+        }
+
+    }
     return false;
+
 }
 
 #ifdef _DEBUG

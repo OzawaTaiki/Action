@@ -37,11 +37,19 @@ void SceneTransition::Update()
     if (duration_ != 0)
         t = duration_ / time_;
 
-    if (t - 1.0f > 0)
+    if (canSwitch_)
     {
-        t = 1.0f - (t - 1.0f);
+        t = 1 - (t - 1);
+        if (t < 0)
+            t = 0;
+    }
+
+    if (t >= 1.0f)
+    {
+        t = 1;
         canSwitch_ = true;
     }
+
 
     float easedT = Easing::EaseInOutCirc(t);
 

@@ -82,7 +82,7 @@ private:
 
     bool nChainCombo = false;
 
-    
+
     bool isTrigger_ = false;    // 攻撃ボタンが押されたかどうか
     bool isAttacking_ = false;  // 攻撃中かどうか
     bool canCommbo_ = false;    // コンボ可能かどうか
@@ -96,7 +96,7 @@ private:
 
     std::unique_ptr<CircleShadow> circleShadow_ = nullptr;
 
-    float maxHP_ = 100.0f;
+    float maxHP_ = 20.0f;
     float hp_ = 0.0f;
     bool isAlive_ = true;
 

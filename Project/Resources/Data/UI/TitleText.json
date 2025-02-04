@@ -1,0 +1,28 @@
+{
+    "TitleText": {
+        "TitleText_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "TitleText_color": {
+            "w": 1.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "TitleText_directoryPath": "Resources/images/",
+        "TitleText_isActive": 257,
+        "TitleText_isVisible": 67108865,
+        "TitleText_label": "TitleText",
+        "TitleText_pos": {
+            "x": 640.0,
+            "y": 229.0
+        },
+        "TitleText_rotate": 0.0,
+        "TitleText_size": {
+            "x": 512.0,
+            "y": 256.0
+        },
+        "TitleText_textureName": "TitleText.png"
+    }
+}

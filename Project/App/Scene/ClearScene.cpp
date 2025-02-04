@@ -17,7 +17,7 @@ ClearScene::~ClearScene()
 void ClearScene::Initialize()
 {
     SceneCamera_.Initialize();
-    SceneCamera_.translate_ = { 0,5,-20 };
+    SceneCamera_.translate_ = { 0,5,-13 };
     SceneCamera_.rotate_ = { 0.26f,0,0 };
     SceneCamera_.UpdateMatrix();
 
@@ -27,26 +27,55 @@ void ClearScene::Initialize()
     lineDrawer_->Initialize();
     lineDrawer_->SetCameraPtr(&SceneCamera_);
 
-    uint32_t textureHandle = TextureManager::GetInstance()->Load("ClearText.png");
-    clearSprite_ = Sprite::Create(textureHandle, { .5f, .5f });
-    clearSprite_->SetSize({ 320,160 });
-    clearSprite_->translate_ = { 640,200 };
+    clearText_ = std::make_unique<UISprite>();
+    clearText_->Initialize("ClearText");
 
+
+    pPlayer_ = std::make_unique<Player>();
+    pPlayer_->Initialize();
+
+    plane_ = std::make_unique<ObjectModel>();
+    plane_->Initialize("Tile/Tile.gltf", "Ground");
 }
 
 void ClearScene::Update()
 {
+    if (!playerUpdate_)
+    {
+        pPlayer_->Update();
+        pPlayer_->Update();
+        playerUpdate_ = true;
+    }
+
 #ifdef _DEBUG
     ImGui();
 
     if(Input::GetInstance()->IsKeyTriggered(DIK_RETURN) &&
        Input::GetInstance()->IsKeyPressed(DIK_RSHIFT))
         enableDebugCamera_ = !enableDebugCamera_;
+    clearText_->Update();
 #endif // _DEBUG
 
     if (Input::GetInstance()->IsKeyTriggered(DIK_SPACE) ||
         Input::GetInstance()->IsPadReleased(PadButton::iPad_A))
         SceneManager::ReserveScene("Title");
+
+    plane_->Update();
+
+    velo.y += 3.0f;
+    startPos.y += velo.y;
+    if (startPos.y > 300)
+    {
+        boundCount++;
+        velo.y = -velo.y * e;
+        startPos.y = 300;
+    }
+    if (boundCount > 3)
+    {
+        startPos.y = 300;
+    }
+
+    clearText_->SetPos(startPos);
 
     clearSprite_->Update();
 
@@ -69,15 +98,15 @@ void ClearScene::Update()
 void ClearScene::Draw()
 {
     ModelManager::GetInstance()->PreDrawForObjectModel();
+    plane_->Draw(&SceneCamera_, { 1,1,1,1 });
 
 //-------------------------------------------------------------------------
     ModelManager::GetInstance()->PreDrawForAnimationModel();
-
+    pPlayer_->Draw(&SceneCamera_);
 
 //-------------------------------------------------------------------------
     Sprite::PreDraw();
-    clearSprite_->Draw();
-
+    clearText_->Draw();
 
 //-------------------------------------------------------------------------
     ParticleManager::GetInstance()->Draw(&SceneCamera_);
