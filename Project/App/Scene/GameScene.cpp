@@ -3,6 +3,7 @@
 #include <Features/Sprite/Sprite.h>
 #include <Debug/ImGuiManager.h>
 #include <Features/Scene/Manager/SceneManager.h>
+#include <Core/DXCommon/TextureManager/TextureManager.h>
 #include <Features/Collision/Manager/CollisionManager.h>
 
 std::unique_ptr<BaseScene>GameScene::Create()
@@ -33,6 +34,8 @@ void GameScene::Initialize()
 
 #pragma region App
 
+    SceneCamera_.SetTimeChannel("Effects");
+
     pPlayer_ = std::make_unique<Player>();
     pPlayer_->Initialize();
 
@@ -43,6 +46,15 @@ void GameScene::Initialize()
     pEnemyManager_ = EnemyManager::GetInstance();
     pEnemyManager_->Initialize();
     pEnemyManager_->SetPlayerPosition(pPlayer_->GetWorldTransform());
+
+    skyDome_ = std::make_unique<ObjectModel>();
+    skyDome_->Initialize("skydome/skydome.obj", "SkyDome");
+    skyDome_->scale_ = { 50,50 ,50 };
+    skyDome_->GetMaterial()->enableLighting_ = false;
+
+    skyDomeTexture_ = TextureManager::GetInstance()->Load("skydome.png");
+
+    pPlayer_->SetCamera(followCamera_->GetCamera());
 
 
 #pragma endregion
@@ -66,10 +78,11 @@ void GameScene::Update()
     if(!pPlayer_->IsAlive())
         SceneManager::ReserveScene("gameOver");
 
+    skyDome_->Update();
     plane_->Update();
 
     followCamera_->Update();
-    pPlayer_->Update(followCamera_->GetRotation());
+    pPlayer_->Update();
     pEnemyManager_->Update();
 
     if (enableDebugCamera_)
@@ -91,6 +104,7 @@ void GameScene::Update()
 void GameScene::Draw()
 {
     ModelManager::GetInstance()->PreDrawForObjectModel();
+    skyDome_->Draw(&SceneCamera_, skyDomeTexture_, { 1,1,1,1 });
     plane_->Draw(&SceneCamera_, { 1,1,1,1 });
 
     pEnemyManager_->Draw(&SceneCamera_);

@@ -27,6 +27,7 @@ public:
 
     void SetPlayer(Player* _player) { target_ = _player; }
 
+    Camera* GetCamera() { return &camera_; }
 
 private:
 

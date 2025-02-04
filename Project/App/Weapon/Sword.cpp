@@ -14,9 +14,6 @@ void Sword::Initialize()
     jsonBinder_->RegisterVariable("ModelPath", &modelPath_);
     jsonBinder_->RegisterVariable("Offset", &model_->translate_);
 
-    //jsonBinder_->RegisterVariable("kesaS", &kesagiriStart_);
-    //jsonBinder_->RegisterVariable("kesaE", &kesagiriEnd_);
-    //jsonBinder_->RegisterVariable("kesaDuration", &kesagiriDuration_);
 
 
     if (modelPath_.empty())
@@ -142,6 +139,7 @@ void Sword::ImGui()
         }
     }
 
+    camera_->ShakeParametaerSettingFromImGui();
 
     ImGui::End();
 #endif // _DEBUG
@@ -160,7 +158,10 @@ void Sword::OnCollision(const Collider* _other)
                     slashEffect_[i]->SetActive(true);
                     isSlashEffectActive_[i] = true;
                     if (*currentCombo_ != std::nullopt && *currentCombo_ == 2)
+                    {
                         GameTime::GetChannel("default").ApplyHitStop(0.2f);
+                        camera_->Shake(0.15f, { -0.05f,-0.05f }, { 0.05f,0.05f });
+                    }
                     break;
                 }
             }

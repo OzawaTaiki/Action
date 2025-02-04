@@ -42,6 +42,8 @@ private:
     ParticleManager* particleManager_ = nullptr;
 
     std::unique_ptr<ObjectModel> plane_ = nullptr;
+    std::unique_ptr<ObjectModel> skyDome_ = nullptr;
+    uint32_t skyDomeTexture_ = 0;
 
     std::unique_ptr<Player> pPlayer_;
     std::unique_ptr<FollowCamera> followCamera_ = nullptr;

@@ -29,20 +29,21 @@ void Player::Initialize()
     collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
     collider_->SetReferencePoint({ 0,0,0 });
 
+    currentAttack_ = std::nullopt;
+
     weapon_ = std::make_unique<Sword>();
     weapon_->Initialize();
     weapon_->SetCurrentCombo(&currentAttack_);
+    weapon_->SetParent(&rightArm_);
     //weapon_->SetParent(model_->GetWorldTransform());
 
     f_currentState_ = std::bind(&Player::Idle, this);
 
-    currentAttack_ = std::nullopt;
 
 
     // 右手のトランスフォームを別で用意
     rightArm_.Initialize();
     // それを武器の親にする
-    weapon_->SetParent(&rightArm_);
 
     circleShadow_ = std::make_unique<CircleShadow>();
     circleShadow_->Initialize(model_->GetWorldTransform());
@@ -52,14 +53,14 @@ void Player::Initialize()
 
 }
 
-void Player::Update(const Vector3& _cameraroate)
+void Player::Update()
 {
 #ifdef _DEBUG
     ImGui();
 #endif // _DEBUG
 
 
-    Matrix4x4 cameraRotMat = MakeRotateMatrix(_cameraroate);
+    Matrix4x4 cameraRotMat = MakeRotateMatrix(camera_->rotate_);
     Move(cameraRotMat);
 
     f_currentState_();

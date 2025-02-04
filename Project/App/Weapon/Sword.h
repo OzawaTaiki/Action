@@ -34,6 +34,8 @@ public:
 
     void SetCurrentCombo(std::optional<int32_t>* _currentCombo) { currentCombo_ = _currentCombo; }
 
+    void SetCamra(Camera* _camera) { camera_ = _camera; }
+
 #ifdef _DEBUG
     void SetDrawCollider(bool _draw) { gui_drawCollider_ = _draw; }
 #endif // _DEBUG
@@ -47,7 +49,7 @@ private:
     bool isWaitingForIdle_ = true;          // Idle状態に戻るまで待機中か
 
     std::optional<int32_t>* currentCombo_ ;             // 現在のコンボ数
-
+    Camera* camera_ = nullptr;
 
     std::array<std::unique_ptr<SlashEffect>, 32> slashEffect_;
     std::array<bool, 32> isSlashEffectActive_ = { false };

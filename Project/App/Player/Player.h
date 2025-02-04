@@ -23,12 +23,14 @@ public:
     ~Player() = default;
 
     void Initialize();
-    void Update(const Vector3& _cameraroate);
+    void Update();
     void Draw(const Camera* _camera);
 
     void OnCollision(const Collider* _other);
 
     bool IsAlive()const { return isAlive_; }
+
+    void SetCamera(Camera* _camera) { camera_ = _camera;     weapon_->SetCamra(camera_); }
 
     const WorldTransform* GetWorldTransform() { return model_->GetWorldTransform(); }
     Vector3 GetPosition() { return model_->GetWorldTransform()->GetWorldPosition(); }
@@ -49,6 +51,8 @@ private:
     std::unique_ptr<AnimationModel> model_ = nullptr;
     std::unique_ptr<Collider> collider_ = nullptr;
 
+
+    Camera* camera_ = nullptr;
 
     Vector3 move_ = {};
     float moveSpeed_ = 1.0f;
