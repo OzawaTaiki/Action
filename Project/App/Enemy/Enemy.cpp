@@ -1,5 +1,9 @@
 #include "Enemy.h"
 
+#include <Math/Random/RandomGenerator.h>
+#include <Math/MyLib.h>
+
+
 uint32_t Enemy::enemyCount_ = 0;
 
 Enemy::Enemy()
@@ -154,7 +158,7 @@ void Enemy::InitCollider()
     collider_->SetBoundingBox(Collider::BoundingBox::OBB_3D);
     collider_->SetShape(model_->GetMin(), model_->GetMax());
     collider_->SetAtrribute("Enemy");
-    collider_->SetMask({ "Player" });
+    collider_->SetMask("None");
     collider_->SetGetWorldMatrixFunc([this]() {return model_->GetWorldTransform()->matWorld_; });
     collider_->SetOnCollisionFunc([this](const Collider* _other) {OnCollision(_other); });
     collider_->SetReferencePoint({ 0,0,0 });
@@ -167,15 +171,52 @@ void Enemy::Idle()
 
     assert(playerWT_ && "PlayerWorldTransform is nullptr");
 
+    // player を中心に回る
+
    // 距離が離れたら追いかける
     Vector3 playerPosition = playerWT_->GetWorldPosition();
     Vector3 enemyPosition = model_->GetWorldTransform()->GetWorldPosition();
     Vector3 direction = playerPosition - enemyPosition;
 
-    if (direction.Length() > chaseEndDistance_)
+    float distance = direction.Length();
+
+
+    if (distance > chaseEndDistance_)
     {
         f_currentState_ = [this]() {ChasePlayer(); };
+        curTime_ = 0;
+        return;
     }
+
+
+
+    if (!isStay_)
+    {
+        direction = direction.Normalize();
+
+        // 動く方向をランダムで決める
+        Vector2 move = RandomGenerator::GetInstance()->GetUniformVec2(-moveRange_, moveRange_);
+
+        // 移動後の方向
+        Vector3 afterDirection = direction + Vector3(move.x, 0, move.y);
+        afterDirection = afterDirection.Normalize();
+
+        //
+        targetPosition_ = playerPosition - afterDirection * chaseEndDistance_ * 0.9f;
+        isStay_ = true;
+
+    }
+    curTime_ += GameTime::GetChannel("default").GetDeltaTime<float>();
+
+    float t = curTime_ / actionTime_;
+    if (t > 1.0f)
+    {
+        t = 1.0f;
+        isStay_ = false;
+        curTime_ = 0;
+    }
+
+    model_->translate_ = Lerp(enemyPosition, targetPosition_, 0.05f);
 }
 
 void Enemy::ChasePlayer()

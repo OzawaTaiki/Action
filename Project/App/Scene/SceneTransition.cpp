@@ -33,7 +33,9 @@ void SceneTransition::Update()
 {
     duration_ += channel_->GetDeltaTime<float>();
 
-    float t = duration_ / time_;
+    float t = 0;
+    if (duration_ != 0)
+        t = duration_ / time_;
 
     if (t - 1.0f > 0)
     {

@@ -76,7 +76,7 @@ void GameScene::Update()
         SceneManager::ReserveScene("Clear");
 
     if(!pPlayer_->IsAlive())
-        SceneManager::ReserveScene("gameOver");
+        SceneManager::ReserveScene("GameOver");
 
     skyDome_->Update();
     plane_->Update();

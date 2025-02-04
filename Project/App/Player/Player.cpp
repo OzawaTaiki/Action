@@ -73,6 +73,17 @@ void Player::Update()
     weapon_->Update();
 
     UpdateRightArmTrans();
+
+    if(isDamage)
+    {
+        currentDamageCoolTime_ += GameTime::GetChannel("default").GetDeltaTime<float>();
+        if (currentDamageCoolTime_ >= damageCoolTime_)
+        {
+            currentDamageCoolTime_ = 0;
+            isDamage = false;
+        }
+    }
+
 }
 
 void Player::Draw(const Camera* _camera)
@@ -93,8 +104,13 @@ void Player::OnCollision(const Collider* _other)
 {
     if (_other->GetName() == "Enemy")
     {
-        if (hp_-- <= 0)
-            isAlive_ = false;
+        if (!isDamage)
+        {
+            currentDamageCoolTime_ = 0;
+            isDamage = true;
+            if (hp_-- <= 0)
+                isAlive_ = false;
+        }
     }
 }
 
@@ -344,6 +360,7 @@ void Player::ImGui()
         ImGui::Text("toIdle : %s", toIdle_ ? "true" : "false");
         ImGui::Text("currentAttack : %d", currentAttack_.value_or(-1));
         ImGui::Text("nextAttack : %d", nextAttack_.value_or(-1));
+        ImGui::Text("Hp: %.1f", hp_);
 
 
         ImGui::EndTabItem();

@@ -17,7 +17,7 @@ public:
     void Draw(const Camera* _camera) override;
     void DrawFront(const Camera* _camera);
 
-    void SetPosition(const Vector3& _pos) { model_->translate_ = _pos; }
+    void SetPosition(const Vector3& _pos) { model_->translate_ = _pos; model_->Update(); }
 
     void ImGui() override;
 
@@ -56,6 +56,14 @@ private:
     std::unique_ptr<JsonBinder> jsonBinder_;
     std::string modelPath_ = "enemy/enemy.gltf";
     Vector4 color_ = {1,1,1,1};
+
+    float actionTime_ = 4.0f;
+    float curTime_ = 0;
+    Vector3 targetPosition_ = {};
+    bool isStay_ = false;
+
+    Vector2 moveRange_ = { 1,1 };
+
 #ifdef _DEBUG
     char modelName_[256];
 

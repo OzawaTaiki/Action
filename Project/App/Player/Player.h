@@ -100,6 +100,11 @@ private:
     float hp_ = 0.0f;
     bool isAlive_ = true;
 
+    bool isDamage = false;
+    float damageCoolTime_ = 1.0f;
+    float currentDamageCoolTime_ = 0.0f;
+
+
 
     std::unique_ptr<JsonBinder> jsonBinder_ = nullptr;
     std::string modelPath_ = "Sphere/Sphere.obj";

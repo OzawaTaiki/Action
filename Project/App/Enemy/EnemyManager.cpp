@@ -29,7 +29,7 @@ void EnemyManager::Update()
     ImGui();
 #endif // _DEBUG
 
-    if (enemies_.size() < 5)
+    if (enemies_.size() < 1)
     {
         if (phaseSpawnNum_.size() != spawnCount_)
             SpawnEnemy(phaseSpawnNum_[spawnCount_]);
@@ -123,7 +123,39 @@ void EnemyManager::ImGui()
     ImGui::DragInt("SpawnNum", &spawnNum_, 1, 1, 100);
     if (ImGui::Button("SpawnEnemy##2"))
     {
-        SpawnEnemy(spawnNum_);
+        Vector3 playerPos = playerWT_->GetWorldPosition();
+        auto random = RandomGenerator::GetInstance();
+
+        // playerから半径n外に円を置く
+        // その中にランダムで出現
+        // playerからどの方向へスポーンするか
+        Vector3 spawnDirectionFromPlayer = random->GetUniformVec3({ -1,0,-1 }, { 1,0,1 });
+        spawnDirectionFromPlayer.y = 0;
+        spawnDirectionFromPlayer = spawnDirectionFromPlayer.Normalize();
+
+        // playerからどの距離にスポーンするか
+        float spawnDistance = random->GetUniformFloat(spawnRange_.x, spawnRange_.y);
+
+        // スポーン範囲の円の座標
+        Vector3 spawnCirclePos = playerPos + spawnDirectionFromPlayer * spawnDistance;
+
+        for (uint32_t i = 0; i < spawnNum_; ++i)
+        {
+            auto& enemy = enemies_.emplace_back(std::make_unique<Enemy>());
+            enemy->Initialize();
+
+
+            // スポーン範囲
+            Vector3 spawnDirection = random->GetUniformVec3({ -1,0,-1 }, { 1,0,1 });
+            spawnDirection.y = 0;
+            float randomRadius = random->GetUniformFloat(0, spawnRadius);
+            Vector3 spawnPos = spawnCirclePos + spawnDirection * randomRadius;
+            spawnPos.y = 0;
+
+            enemy->SetPosition(spawnPos);
+            enemy->SetPlayerPosition(playerWT_);
+
+        }
         spawnNum_ = 1;
     }
 
