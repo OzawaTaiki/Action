@@ -36,6 +36,9 @@ void ClearScene::Initialize()
 
     plane_ = std::make_unique<ObjectModel>();
     plane_->Initialize("Tile/Tile.gltf", "Ground");
+
+    GameTime::GetChannel("default").SetGameSpeed(1.0f);
+
 }
 
 void ClearScene::Update()
